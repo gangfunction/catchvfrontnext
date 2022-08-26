@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "react-http-faabd"
-  }
+    "default": "react-http-faabd",
+    "staging": "catchvfront"
+  },
+  "targets": {},
+  "etags": {}
 }

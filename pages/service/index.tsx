@@ -1,10 +1,16 @@
-const ServicePage =()=>{
+import DropResume from "../DragAndDrop";
+import Home from "../../components/storage/Home/Home";
+
+const ServicePage = () => {
 
     return (
         <>
-        <div>
-            <h1>Service</h1>
-        </div>
+            <div>
+                <Home/>
+                <DropResume/>
+
+            </div>
+
         </>
     )
 }

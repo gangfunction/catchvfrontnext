@@ -1,8 +1,14 @@
-const Profile = ()=>{
-    return(
-        <div>
-            <h2>Profile</h2>
-        </div>
+import PasswordChangeForm from "../../components/member/PasswordChangeForm";
+
+function ProfilePage() {
+
+
+    return (
+        <>
+            <PasswordChangeForm/>
+        </>
     )
+
 }
-export default Profile;
+
+export default ProfilePage;

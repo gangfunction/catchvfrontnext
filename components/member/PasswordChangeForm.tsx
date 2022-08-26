@@ -1,9 +1,10 @@
 import {useContext, useRef} from "react";
 import AuthContext from "../../store/auth";
 import {useNavigate} from "react-router-dom";
+import {useRouter} from "next/router";
 const API_KEY = process.env.APIKEY
-const ProfilePage = () => {
-    const navigate = useNavigate();
+const PasswordChangeForm = () => {
+    const router = useRouter();
     const newPasswordInputRef = useRef() as any;
     const authCtx= useContext(AuthContext) ;
     const submitHandler = (event:any)=>{
@@ -22,7 +23,7 @@ const ProfilePage = () => {
                     'Content-Type':'application/json'
                 }
             }).then((res:any)=>{
-                navigate('/');
+                router.push('/');
         })
 
     }
@@ -43,4 +44,4 @@ const ProfilePage = () => {
     );
 
 }
-export default ProfilePage;
+export default PasswordChangeForm;

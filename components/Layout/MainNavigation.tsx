@@ -1,7 +1,6 @@
 import {useContext} from 'react'
 import AuthContext from "../../store/auth";
 import Link from "next/link";
-import { Router } from 'react-router-dom';
 import {useRouter} from "next/router";
 
 const MainNavigation = () => {
@@ -17,21 +16,22 @@ const MainNavigation = () => {
         <>
             <header className="m-4 container flex flex-wrap justify-between items-center mx-auto">
                 <Link href="/">
-                    <button className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                        Catch V
-                    </button>
+                    {isLoggedIn ? <div>
+                            <button
+                                className=" m-4  text-4xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                                Catch V
+                            </button>
+                        </div> :
+                        <div>
+                            <button
+                                className=
+                                    " m-4 text-4xl font-extrabold-4xl font-extrabold tracking-tight gray-red-600 sm:text-5xl">Catch
+                                V1
+                            </button>
+                        </div>}
                 </Link>
-                <nav>
+                <nav >
                     <ul className="flex flex-wrap">
-                        {!isLoggedIn && (
-                            <li>
-                                <Link href="/login">
-                                    <a className="p-3 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-2xl">
-                                        Login
-                                    </a>
-                                </Link>
-                            </li>
-                        )}
                         {isLoggedIn && (
                             <li>
                                 <Link href="/service">
@@ -43,7 +43,7 @@ const MainNavigation = () => {
                         )}
                         {isLoggedIn && (
                             <li>
-                                <Link href="/new-profile">
+                                <Link href="/profile">
                                     <a className="p-3 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-2xl">
                                         Profile
                                     </a>
@@ -52,10 +52,10 @@ const MainNavigation = () => {
                         )}
                         {isLoggedIn && (
                             <li>
-                                <button
+                                <a
                                     className="p-3 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-2xl"
                                     onClick={logoutHandler}>Logout
-                                </button>
+                                </a>
                             </li>
                         )}
                     </ul>
