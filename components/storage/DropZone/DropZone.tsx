@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useCallback, useState} from "react";
 import styles from './DropZone.module.css'
 import UploadForm from "../UploadForm/UploadForm";
+
 
 function noMoving(e: Event) {
     //새로고침 방지
@@ -59,9 +60,9 @@ const DropZone = ({data, dispatch}: any) => {
                 "Content-Type": "multipart/form-data",
             },
             body: formData,
-        }).then(function(response:any){
+        }).then(function (response: any) {
             return response.json();
-        }).then(function(data:any){
+        }).then(function (data: any) {
             // location.href = "메인페이지 전환"
         }) as any;
         if (response.ok) {
@@ -71,34 +72,40 @@ const DropZone = ({data, dispatch}: any) => {
         }
     };
 
+
     return (
         <>
-            <div
-                className={styles.dropzone}
-                onDragEnter={(e: any) => handleDragEnter(e)}
-                onDragOver={(e: any) => handleDragOver(e)}
-                onDragLeave={(e: any) => handleDragLeave(e)}
-                onDrop={(e: any) => handleDrop(e)}
-            >
+                <div
+                    className={styles.dropzone}
+                    onDragEnter={(e: any) => handleDragEnter(e)}
+                    onDragOver={(e: any) => handleDragOver(e)}
+                    onDragLeave={(e: any) => handleDragLeave(e)}
+                    onDrop={(e: any) => handleDrop(e)}
+                >
 
-                <input
-                    id="fileSelect"
-                    type="file"
-                    multiple
-                    className={styles.files}
-                    onChange={(e: any) => handleFileSelect(e)}
-                />
-                <label htmlFor="fileSelect">Select Files</label>
-                <h3 className={styles.uploadMessage}>
-                    or drop your files here
-                </h3>
-            </div>
-            <UploadForm fileData={data}/>
-            {data.fileList.length > 0 && (
-                <button className="m-3" onClick={uploadFiles}>
-                    Upload
-                </button>
-            )}
+                    <input
+                        id="fileSelect"
+                        type="file"
+                        multiple
+                        className={styles.files}
+                        onChange={(e: any) => handleFileSelect(e)}
+                    />
+                    <label htmlFor="fileSelect">Select Files</label>
+                    <h3 className={styles.uploadMessage}>
+                        or drop your files here
+                    </h3>
+                </div>
+                <UploadForm fileData={data}/>
+                {data.fileList.length > 0 && (
+                    <button type="submit"
+                            className="m-3"
+                            onClick={uploadFiles}
+                    >
+
+                        Upload
+                    </button>
+                )}
+
         </>
     );
 };

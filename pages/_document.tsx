@@ -1,17 +1,19 @@
-import {Head, Html, Main, NextScript} from "next/document";
+import Document, {Head, Html, Main, NextScript, DocumentContext} from "next/document";
+class MyDocument extends Document {
 
-const MyDocument =()=> {
-    return(
+        render(){
+        return (
             <Html lang="ko">
                 <Head>
-                    <meta charSet="utf-8" />
+                    <meta charSet="utf-8"/>
                     <title>Catch V</title>
                 </Head>
-               <body>
-               <Main/>
-               <NextScript/>
-               </body>
+                <body>
+                <Main/>
+                <NextScript/>
+                </body>
             </Html>
         );
     };
+}
 export default MyDocument;
