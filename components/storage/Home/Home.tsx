@@ -19,14 +19,11 @@ export default function Home() {
         fileList: [],
     });
     return (
-        <div className={styles.container}>
-
-            <main className={styles.main}>
+        <div >
+            <main>
                 <DropZone  data={data} dispatch={dispatch} />
             </main>
-
-            <footer className={styles.footer}>
-                <div>{new Date().getFullYear()}</div>
+            <footer>
             </footer>
         </div>
     );

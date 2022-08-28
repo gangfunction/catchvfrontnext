@@ -75,36 +75,47 @@ const DropZone = ({data, dispatch}: any) => {
 
     return (
         <>
-                <div
-                    className={styles.dropzone}
-                    onDragEnter={(e: any) => handleDragEnter(e)}
-                    onDragOver={(e: any) => handleDragOver(e)}
-                    onDragLeave={(e: any) => handleDragLeave(e)}
-                    onDrop={(e: any) => handleDrop(e)}
-                >
+            <div
+                className={styles.dropzone}
+                onDragEnter={(e: any) => handleDragEnter(e)}
+                onDragOver={(e: any) => handleDragOver(e)}
+                onDragLeave={(e: any) => handleDragLeave(e)}
+                onDrop={(e: any) => handleDrop(e)}
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gray-600" fill="none"
+                     viewBox="0 0 24 24"
+                     stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round"
+                          d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                </svg>
+                <input
+                    id="fileSelect"
+                    type="file"
+                    multiple
+                    className={styles.files}
+                    onChange={(e: any) => handleFileSelect(e)}
+                />
+                <label htmlFor="fileSelect">Select Files</label>
+                <h3 className={styles.uploadMessage}>
+                    or drop your files here
+                </h3>
+            </div>
+            <UploadForm fileData={data}/>
 
-                    <input
-                        id="fileSelect"
-                        type="file"
-                        multiple
-                        className={styles.files}
-                        onChange={(e: any) => handleFileSelect(e)}
-                    />
-                    <label htmlFor="fileSelect">Select Files</label>
-                    <h3 className={styles.uploadMessage}>
-                        or drop your files here
-                    </h3>
-                </div>
-                <UploadForm fileData={data}/>
-                {data.fileList.length > 0 && (
-                    <button type="submit"
-                            className="m-3"
-                            onClick={uploadFiles}
-                    >
 
-                        Upload
-                    </button>
-                )}
+
+
+            {data.fileList.length > 0 && (
+                <button type="submit"
+                        onClick={uploadFiles}
+                        className="relative inline-block group focus:outline-none focus:ring" >
+                <span
+                    className="absolute inset-0 transition-transform translate-x-1.5 translate-y-1.5 bg-yellow-300 group-hover:translate-y-0 group-hover:translate-x-0"></span>
+                    <span
+                        className="relative inline-block px-6 py-2 text-sm font-bold tracking-widest text-black uppercase border-2 border-current group-active:text-opacity-0">
+                    Upload</span>
+                </button>
+            )}
 
         </>
     );

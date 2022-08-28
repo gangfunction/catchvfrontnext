@@ -7,6 +7,7 @@ class MyDocument extends Document {
                 <Head>
                     <meta charSet="utf-8"/>
                     <title>Catch V</title>
+                    <base href='/'/>
                 </Head>
                 <body>
                 <Main/>
