@@ -1,24 +1,22 @@
-import React, {useState, useRef, useContext, useCallback} from 'react'
-import AuthContext from "../../store/auth";
+import React, {useState, useRef, useCallback} from 'react'
 import {useRouter} from "next/router";
 
-const LoginForm = () => {
-    const router= useRouter();
+const RegisterForm = () => {
+    const router = useRouter();
 
     const [userEmail, setUserEmail] = useState('');
     const [userPassword, setUserPassword] = useState('');
 
     const [isEmail, setIsEmail]= useState<boolean>(false);
     const [isPassword, setIsPassword]= useState<boolean>(false);
+    const [isPasswordConfirm, setIsPasswordConfirm] = useState<boolean>(false)
 
     const [emailMessage, setEmailMessage]= useState<string>('');
     const [passwordMessage, setPasswordMessage]= useState<string>('');
+    const [passwordConfirm, setPasswordConfirm]= useState<string>('');
+    const [passwordConfirmMessage, setPasswordConfirmMessage] = useState<string>('')
 
     const [isLoading, setIsLoading] = useState(false)
-
-    const authCtx = useContext(AuthContext)
-
-
     const emailInputRef = useRef<HTMLInputElement>(null) as any
     const passwordInputRef = useRef<HTMLInputElement>(null) as any
 
@@ -27,7 +25,7 @@ const LoginForm = () => {
         const enteredEmail = emailInputRef.current.value
         const enteredPassword = passwordInputRef.current.value
         setIsLoading(true)
-        let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key='+process.env.API_KEY
+        let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key='+process.env.API_KEY
         fetch(url, {
             method: 'POST',
             body: JSON.stringify({
@@ -50,12 +48,9 @@ const LoginForm = () => {
                     })
                 }
             })
-            .then((data: any) => {
-                const expirationTime = new Date((new Date().getTime() + (+data.expiresIn * 1000)))
-                authCtx.login(data.idToken, expirationTime.toISOString())
+            .then(() => {
                 console.log(enteredEmail, enteredPassword);
                 router.reload();
-
 
             })
             .catch((err: any) => {
@@ -82,13 +77,30 @@ const LoginForm = () => {
         setUserPassword(passwordCurrent)
 
         if (!passwordRegex.test(passwordCurrent)) {
+            setPasswordMessage('특수문자 포함 8글자 이상')
             setIsPassword(false)
         } else {
+            setPasswordMessage('It\'s safe')
             setIsPassword(true)
         }
     }, [])
 
+    // 비밀번호 확인
+    const onChangePasswordConfirm = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            const passwordConfirmCurrent = e.target.value
+            setPasswordConfirm(passwordConfirmCurrent)
 
+            if (userPassword === passwordConfirmCurrent) {
+                setPasswordConfirmMessage('It\'s valid')
+                setIsPasswordConfirm(true)
+            } else {
+                setPasswordConfirmMessage('Please enter same password again')
+                setIsPasswordConfirm(false)
+            }
+        },
+        [userPassword]
+    )
     return (
         <>
             <section className="h-screen">
@@ -98,9 +110,9 @@ const LoginForm = () => {
                         className="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6">
                         <div className="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
                             <div className="m-3 text-center">
-                                LOGIN
+                                REGISTER
                             </div>
-                             <form onSubmit={submitHandler}>
+                            <form onSubmit={submitHandler}>
                                 <div className="mb-6">
                                     <span>Email</span>
 
@@ -139,6 +151,20 @@ const LoginForm = () => {
                                     }
                                 </div>
 
+                                <div className="mb-6">
+                                    <span>Password Confirm</span>
+
+                                    <input
+                                        onChange={onChangePasswordConfirm}
+                                        type='password'
+                                        className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                    />
+                                    {passwordConfirm.length > 0 && (
+                                        <span className="text-right">
+                                             <div className={`message ${isPasswordConfirm ? 'success' : 'error'}`}>{passwordConfirmMessage}</div>
+                                         </span>
+                                    )}
+                                </div>
 
                                 <div className="text-center lg:text-left">
                                     {!isLoading && (<button
@@ -150,7 +176,6 @@ const LoginForm = () => {
                                     {isLoading && <button
                                         className="inline-block px-7 py-3 bg-indigo-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Sending
                                         Signup Requests</button>}
-
                                 </div>
 
                             </form>
@@ -161,4 +186,4 @@ const LoginForm = () => {
         </>)
 }
 
-export default LoginForm
+export default RegisterForm

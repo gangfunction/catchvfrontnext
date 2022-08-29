@@ -8,6 +8,8 @@ class MyDocument extends Document {
                     <meta charSet="utf-8"/>
                     <title>Catch V</title>
                     <base href='/'/>
+                    <link rel="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+
                 </Head>
                 <body>
                 <Main/>

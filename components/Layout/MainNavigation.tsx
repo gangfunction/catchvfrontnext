@@ -26,7 +26,7 @@ const MainNavigation = () => {
                             <button
                                 className=
                                     " m-4 text-4xl font-extrabold-4xl font-extrabold tracking-tight gray-red-600 sm:text-5xl">Catch
-                                V1
+                                V
                             </button>
                         </div>}
                 </Link>
