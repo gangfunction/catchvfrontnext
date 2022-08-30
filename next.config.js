@@ -1,18 +1,21 @@
-/** @type {import('next').NextConfig} */
-require('dotenv').config();
-const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
-  webpack5: true,
-  webpack: (config)=>{
-    config.resolve.fallback ={fs:false};
-    return config;
-  }
-}
+const nextEnv = require("next-env");
+const dotenvLoad = require("dotenv-load");
 
-module.exports = nextConfig
-module.exports ={
-  env:{
-    API_KEY:'AIzaSyC0umWjshwolCPmaB9UoTkt3X3iM4yBDl4'
-  }
-}
+dotenvLoad();
+
+/** @type {import('next').NextConfig} */
+const API_KEY = process.env.NEXT_API_KEY;
+module.exports = {
+  swcMinify: true,
+  reactStrictMode: true,
+  async rewrites() {
+    return {
+      fallback: [
+        {
+          source: "/api/login",
+          destination: `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`,
+        },
+      ],
+    };
+  },
+};

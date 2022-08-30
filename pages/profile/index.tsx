@@ -1,14 +1,11 @@
 import PasswordChangeForm from "../../components/member/PasswordChangeForm";
 
 function ProfilePage() {
-
-
-    return (
-        <>
-            <PasswordChangeForm/>
-        </>
-    )
-
+  return (
+    <>
+      <PasswordChangeForm />
+    </>
+  );
 }
 
 export default ProfilePage;
