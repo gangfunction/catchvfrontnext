@@ -1,9 +1,4 @@
-const dotenvLoad = require("dotenv-load");
-
-dotenvLoad();
-
 /** @type {import('next').NextConfig} */
-const API_KEY = process.env.NEXT_API_KEY;
 module.exports = {
   swcMinify: true,
   reactStrictMode: true,
@@ -16,5 +11,8 @@ module.exports = {
         },
       ],
     };
+  },
+  env: {
+    NEXT_API_KEY: "AIzaSyC0umWjshwolCPmaB9UoTkt3X3iM4yBDl4",
   },
 };

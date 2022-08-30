@@ -26,7 +26,7 @@ const LoginForm = () => {
       const enteredPassword = passwordInputRef.current.value;
       const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.NEXT_API_KEY}`;
 
-      fetch("/api/login", {
+      fetch(url, {
         method: "POST",
         body: JSON.stringify({
           email: enteredEmail,
