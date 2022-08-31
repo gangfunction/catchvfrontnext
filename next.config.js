@@ -7,7 +7,7 @@ module.exports = {
       fallback: [
         {
           source: "/api/login",
-          destination: `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`,
+          destination: `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.NEXT_API_KEY}`,
         },
       ],
     };
