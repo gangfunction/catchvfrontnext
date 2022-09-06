@@ -1,7 +1,8 @@
-import React, { useCallback } from "react";
+import React, {useCallback, useState} from "react";
 import styles from "./DropZone.module.css";
 import UploadForm from "../UploadForm/UploadForm";
 import {router} from "next/client";
+import imageCompression from "browser-image-compression";
 
 function noMoving(e: Event) {
   // 새로고침 방지
@@ -57,18 +58,35 @@ const DropZone = ({ data, dispatch }: any) => {
   };
   const uploadFiles = async () => {
     const files = data.fileList;
-    console.log(data.fileList);
-    console.log(data.constantId);
     const formData = new FormData();
     files.forEach((file: any) => formData.append("files", file));
+    const options={
+      maxSizeMB:0.6,
+      maxWidthOrHeight:1920
+    }
+    for(let i=0; i<files.length; i++) {
+      try{
+        files[i]= await imageCompression(files[i],options);
+      }catch(e){
+        console.log(e);
+      }
+    }
+    const convertFormData = new FormData();
+    files.forEach((file: any) => convertFormData.append("file", file));
     console.log(formData);
-    console.log(files);
+    console.log(files.length);
+    console.log(files)
+
+
+
+
+
     const response = (await fetch("image/api/upload", {
       method: "POST",
       headers: {
         "Content-Type": "multipart/form-data",
       },
-      body: formData,
+      body: convertFormData,
     })
       .then(function (response: any) {
         return response.json();
