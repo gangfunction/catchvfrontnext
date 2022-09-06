@@ -26,12 +26,11 @@ const RegisterForm = () => {
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
     setIsLoading(true);
-    const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.NEXT_API_KEY}`;
-    fetch(url, {
+    fetch('http://localhost:8080/user/api/register', {
       method: "POST",
       body: JSON.stringify({
-        email: enteredEmail,
-        password: enteredPassword,
+        userEmail: enteredEmail,
+        userPassword: enteredPassword,
         returnSecureToken: true,
       }),
       headers: {
@@ -43,10 +42,7 @@ const RegisterForm = () => {
         if (res.ok) {
           return res.json();
         }
-        return res.json().then((data: any) => {
-          const errorMessage = "Authentication failed";
-          throw new Error(errorMessage);
-        });
+        return console.log(res);
       })
       .then(() => {
         console.log(enteredEmail, enteredPassword);
@@ -81,7 +77,7 @@ const RegisterForm = () => {
       setUserPassword(passwordCurrent);
 
       if (!passwordRegex.test(passwordCurrent)) {
-        setPasswordMessage("특수문자 포함 8글자 이상");
+        setPasswordMessage("8digits with special letters");
         setIsPassword(false);
       } else {
         setPasswordMessage("It's safe");
@@ -109,14 +105,14 @@ const RegisterForm = () => {
   );
   return (
     <>
-      <section className="h-screen">
-        <div className="px-6 h-full text-gray-800">
+      <section className="h-min">
+        <div className="px-6  text-gray-800">
           <div className="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6">
             <div className="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
-              <div className="m-3 text-center">REGISTER</div>
+              <div className="m-3 text-center font-duo text-4xl text-blue-500">REGISTER</div>
               <form onSubmit={submitHandler}>
                 <div className="mb-6">
-                  <span>Email</span>
+                  <span className="font-mono text-xl text-blue-500 ">Email</span>
 
                   <input
                     type="email"
@@ -125,12 +121,12 @@ const RegisterForm = () => {
                     ref={emailInputRef}
                     onChange={onChangeEmail}
                     value={userEmail}
-                    className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    className="form-control block w-full px-4 py-2 text-l font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   />
                   {userEmail.length > 0 && (
                     <div className={"text-right"}>
                       <span
-                        className={`message${isEmail ? "success" : "error"}`}
+                        className={`text-blue-500 text-l font-mono message${isEmail ? "success" : "error"}`}
                       >
                         {emailMessage}
                       </span>
@@ -138,7 +134,7 @@ const RegisterForm = () => {
                   )}
                 </div>
                 <div className="mb-6">
-                  <span>Password</span>
+                  <span className="text-blue-500 font-mono text-xl">Password</span>
                   <input
                     type="text"
                     id="password"
@@ -146,12 +142,12 @@ const RegisterForm = () => {
                     ref={passwordInputRef}
                     onChange={onChangePassword}
                     value={userPassword}
-                    className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    className="form-control block w-full px-4 py-2 text-l font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   />
                   {userPassword.length > 0 && (
                     <div className={"text-right"}>
                       <span
-                        className={`message${isPassword ? "success" : "error"}`}
+                        className={`text-blue-500 text-l font-mono message${isPassword ? "success" : "error"}`}
                       >
                         {passwordMessage}
                       </span>
@@ -160,17 +156,18 @@ const RegisterForm = () => {
                 </div>
 
                 <div className="mb-6">
-                  <span>Password Confirm</span>
+                  <span className="text-xl text-blue-500 font-mono">Password Confirm</span>
 
                   <input
                     onChange={onChangePasswordConfirm}
                     type="text"
-                    className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    placeholder="password confirm"
+                    className="form-control block w-full px-4 py-2 text-l font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   />
                   {passwordConfirm.length > 0 && (
                     <div className="text-right">
                       <span
-                        className={`message ${
+                        className={`text-blue-500 font-mono text-l message ${
                           isPasswordConfirm ? "success" : "error"
                         }`}
                       >
@@ -180,17 +177,17 @@ const RegisterForm = () => {
                   )}
                 </div>
 
-                <div className="text-center lg:text-left">
+                <div className="text-center lg:text-right">
                   {!isLoading && (
                     <button
                       type="submit"
-                      className="inline-block px-7 py-3 bg-indigo-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                      className="font-mono text-2xl px-6 py-2 bg-blue-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                     >
                       Submit
                     </button>
                   )}
                   {isLoading && (
-                    <button className="inline-block px-7 py-3 bg-indigo-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+                    <button className="font-mono text-2xl  px-6 py-2 bg-blue-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
                       Sending Signup Requests
                     </button>
                   )}

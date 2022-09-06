@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
 import styles from "./DropZone.module.css";
 import UploadForm from "../UploadForm/UploadForm";
+import {router} from "next/client";
 
 function noMoving(e: Event) {
   // 새로고침 방지
@@ -60,8 +61,9 @@ const DropZone = ({ data, dispatch }: any) => {
     console.log(data.constantId);
     const formData = new FormData();
     files.forEach((file: any) => formData.append("files", file));
-
-    const response = (await fetch("/api/upload", {
+    console.log(formData);
+    console.log(files);
+    const response = (await fetch("image/api/upload", {
       method: "POST",
       headers: {
         "Content-Type": "multipart/form-data",
@@ -72,7 +74,7 @@ const DropZone = ({ data, dispatch }: any) => {
         return response.json();
       })
       .then(function () {
-        // location.href = "메인페이지 전환"
+        router.push('/');
       })) as any;
     if (response.ok) {
       alert("Files uploaded successfully");

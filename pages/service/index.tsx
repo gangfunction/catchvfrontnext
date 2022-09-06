@@ -1,15 +1,10 @@
 import Home from "../../components/storage/Home/Home";
 
 const ServicePage = () => {
-
-    return (
-        <>
-            <div>
-                <Home/>
-
-            </div>
-
-        </>
-    )
-}
+  return (
+    <>
+        <Home />
+    </>
+  );
+};
 export default ServicePage;

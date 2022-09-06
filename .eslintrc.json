@@ -1,6 +1,19 @@
 {
-  "extends": ["next/core-web-vitals",
-  "airbnb-base",
-  "plugin:prettier/recommended"
-  ]
+  "extends": [
+    "next/core-web-vitals",
+    "airbnb",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ]
+  }
 }

@@ -59,5 +59,6 @@
   "bugs": {
     "url": "https://github.com/gangfunction/catchvfrontnext/issues"
   },
-  "homepage": "https://github.com/gangfunction/catchvfrontnext#readme"
+  "homepage": "https://github.com/gangfunction/catchvfrontnext#readme",
+  "proxy": "http://localhost:8080"
 }

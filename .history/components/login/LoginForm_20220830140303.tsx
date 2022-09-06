@@ -47,7 +47,7 @@ const LoginForm = () => {
                 })
                 .then((data: any) => {
                     const expirationTime = new Date((new Date().getTime() + (+data.expiresIn * 1000)))
-                    authCtx.login(data.idToken, expirationTime.toISOString())
+                    authCtx.login(data.idToken)
                     router.reload();
     
     
@@ -91,7 +91,7 @@ const LoginForm = () => {
             })
             .then((data: any) => {
                 const expirationTime = new Date((new Date().getTime() + (+data.expiresIn * 1000)))
-                authCtx.login(data.idToken, expirationTime.toISOString())
+                authCtx.login(data.idToken)
                 console.log(enteredEmail, enteredPassword);
                 router.reload();
 

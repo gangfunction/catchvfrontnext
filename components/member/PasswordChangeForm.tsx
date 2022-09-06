@@ -1,5 +1,4 @@
 import { useContext, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import { useRouter } from "next/router";
 import AuthContext from "../../store/auth";
 
