@@ -26,8 +26,8 @@ const RegisterForm = () => {
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
     setIsLoading(true);
-    fetch('http://localhost:8080/user/api/register', {
-      method: "POST",
+    fetch('http://localhost:8080/user/api', {
+      method: "PUT",
       body: JSON.stringify({
         userEmail: enteredEmail,
         userPassword: enteredPassword,

@@ -11,12 +11,12 @@ const PasswordChangeForm = () => {
     const enteredNewPassword = newPasswordInputRef.current.value;
     // add validation
     fetch(
-      `https://identitytoolkit.googleapis.com/vi/accounts:update?key=${process.env.NEXT_API_KEY}`,
+      `http://localhost:8080/user/api`,
       {
-        method: "POST",
+        method: "PATCH",
         body: JSON.stringify({
-          idToken: authCtx.token,
-          password: enteredNewPassword,
+          userEmail: localStorage.getItem('userEmail'),
+          userPassword: enteredNewPassword,
           returnSecureToken: false,
         }),
         headers: {

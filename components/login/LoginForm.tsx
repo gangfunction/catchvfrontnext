@@ -28,7 +28,7 @@ const LoginForm = (props: any) => {
       const enteredPassword = passwordInputRef.current.value;
       localStorage.setItem('userEmail', enteredEmail);
       // api 서버 주소
-      fetch('http://localhost:8080/user/api/login', {
+      fetch('http://localhost:8080/user/api', {
         method: "POST",
         body: JSON.stringify({
           userEmail: enteredEmail,

@@ -1,7 +1,7 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback} from "react";
 import styles from "./DropZone.module.css";
 import UploadForm from "../UploadForm/UploadForm";
-import {router} from "next/client";
+import {useRouter} from "next/router";
 import imageCompression from "browser-image-compression";
 
 function noMoving(e: Event) {
@@ -12,6 +12,7 @@ function noMoving(e: Event) {
 }
 
 const DropZone = ({ data, dispatch }: any) => {
+  const router= useRouter();
   const handleDragEnter = (e: Event) => {
     noMoving(e);
     dispatch({ type: "SET_IN_DROP_ZONE", inDropZone: true });
@@ -57,52 +58,67 @@ const DropZone = ({ data, dispatch }: any) => {
     }
   };
   const uploadFiles = async () => {
-    const files = data.fileList;
+    // const byteString = window.atob(data.fileList.split(",")[1]);
+    // console.log(byteString);
+
+    let files = data.fileList;
     const formData = new FormData();
     files.forEach((file: any) => formData.append("files", file));
-    const options={
-      maxSizeMB:0.6,
-      maxWidthOrHeight:1920
-    }
-    for(let i=0; i<files.length; i++) {
-      try{
-        files[i]= await imageCompression(files[i],options);
-      }catch(e){
-        console.log(e);
-      }
-    }
-    const convertFormData = new FormData();
-    files.forEach((file: any) => convertFormData.append("file", file));
-    console.log(formData);
-    console.log(files.length);
-    console.log(files)
+    console.log(files);
 
-
-
-
-
-    const response = (await fetch("image/api/upload", {
-      method: "POST",
+    const response = (await fetch("http://localhost:8080/image/api", {
+      method: "PUT",
       headers: {
-        "Content-Type": "multipart/form-data",
       },
-      body: convertFormData,
-    })
-      .then(function (response: any) {
-        return response.json();
-      })
-      .then(function () {
+      body: formData,
+    }).then( () =>{
         router.push('/');
       })) as any;
-    if (response.ok) {
-      alert("Files uploaded successfully");
-    } else {
-      alert("Error uploading files");
+    if (response) {
+      if(response.status === 200) {
+        alert("Files uploaded successfully");
+      }else {
+        alert(response.status);
+      }
     }
   };
   useCallback((id: number): void => {
     data.fileList.filter((data: any) => data.id !== id);
   }, []);
+  const fileSizeCalculator = ()=>{
+    let result =0;
+    for (let i=0; i<data.fileList.length; i++){
+      result +=data.fileList[i].size
+    }
+    return (result/1000000).toPrecision(2);
+  }
+  const compressHandler = async () => {
+    if (data.fileList.length > 0) {
+      const options = {
+        maxSizeMB: 0.6,
+        maxWidthOrHeight: 1920
+      }
+      for (let i = 0; i < data.fileList.length; i++) {
+        try {
+          // data.fileList[i] = await imageCompression(data.fileList[i], options);
+          // const compressed= await imageCompression(data.fileList[i], options);
+          // const reader = new FileReader();
+          // reader.readAsDataURL(compressed);
+          // reader.onloadend = () => {
+          //   data.fileList[i] = reader.result;
+          // }
+        } catch (e) {
+          console.log(e);
+        }
+      }
+
+    }
+    alert("File Compression Completed!")
+    await router.push('/service')
+  }
+
+
+
   return (
     <>
       <div
@@ -138,6 +154,23 @@ const DropZone = ({ data, dispatch }: any) => {
         <h3 className={styles.uploadMessage}>or drop your files here</h3>
       </div>
       <UploadForm fileData={data} onRemoveList={handleFileDelete} />
+      <button onChange={(e:any)=>fileSizeCalculator}
+        className="relative inline-block px-6 py-2 text-sm font-bold tracking-widest text-black uppercase border-2 border-current group-active:text-opacity-0">
+        Total File Size
+      <p>
+        {fileSizeCalculator()} MB
+      </p>
+      </button>
+      <button
+        onClick={compressHandler}
+        onChange={fileSizeCalculator}
+        className="relative inline-block group focus:outline-none focus:ring"
+      >
+        <span className="absolute inset-0 transition-transform translate-x-1.5 translate-y-1.5 bg-yellow-300 group-hover:translate-y-0 group-hover:translate-x-0"></span>
+        <span className="relative inline-block px-6 py-2 text-sm font-bold tracking-widest text-black uppercase border-2 border-current group-active:text-opacity-0">
+            Compress File
+          </span>
+      </button>
 
       {data.fileList.length > 0 && (
         <button
@@ -162,6 +195,7 @@ const DropZone = ({ data, dispatch }: any) => {
             DeleteFileList
           </span>
         </button>
+
       )}
     </>
   );
