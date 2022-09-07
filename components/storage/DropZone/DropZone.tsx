@@ -64,12 +64,14 @@ const DropZone = ({ data, dispatch }: any) => {
     let files = data.fileList;
     const formData = new FormData();
     files.forEach((file: any) => formData.append("files", file));
-    console.log(files);
+    const userEmail = localStorage.getItem("userEmail") as any;
+    formData.append("email",userEmail);
+    console.log(formData.get("email"));
 
-    const response = (await fetch("http://localhost:8080/image/api", {
-      method: "PUT",
-      headers: {
-      },
+
+    const response = (await fetch("http://localhost:8080/image/api/flask", {
+      method: "POST",
+      headers: {},
       body: formData,
     }).then( () =>{
         router.push('/');
@@ -100,7 +102,7 @@ const DropZone = ({ data, dispatch }: any) => {
       }
       for (let i = 0; i < data.fileList.length; i++) {
         try {
-          // data.fileList[i] = await imageCompression(data.fileList[i], options);
+          data.fileList[i] = await imageCompression(data.fileList[i], options);
           // const compressed= await imageCompression(data.fileList[i], options);
           // const reader = new FileReader();
           // reader.readAsDataURL(compressed);
