@@ -1,4 +1,4 @@
-import {useCallback, useContext, useEffect, useState} from "react";
+import {useContext} from "react";
 import Link from "next/link";
 import {useRouter} from "next/router";
 import AuthContext from "../../store/auth";
@@ -37,7 +37,7 @@ const MainNavigation = () => {
 
     return (
       <>
-        <header className="m-4 container flex flex-wrap justify-between items-center mx-auto text-blue-500">
+        <header className=" container flex flex-wrap justify-between items-center mx-auto text-blue-500">
           <Link href="/">
               <div >
                 <button>

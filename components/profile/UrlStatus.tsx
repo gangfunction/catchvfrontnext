@@ -1,10 +1,16 @@
+import Piechart from "./chart/Piechart";
+
 const UrlStatus =()=>{
   return(
     <>
     <section>
       UrlSection
-      <div>
-        <p>url list1</p>
+      <div >
+
+        <div className="flex justify-between h-20 border-2 border-emerald-500">
+          <div>url list1</div>
+          <div><Piechart/></div>
+        </div>
         <p>url list2</p>
         <p>url list3</p>
         <p>url list4</p>

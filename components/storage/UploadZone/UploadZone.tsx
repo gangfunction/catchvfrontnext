@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback} from "react";
 import styles from "./UploadZone.module.css";
 import UploadForm from "../UploadForm/UploadForm";
 import {useRouter} from "next/router";
@@ -13,7 +13,6 @@ function noMoving(e: Event) {
 }
 
 const UploadZone = ({ data, dispatch }: any) => {
-  const [startDate,setStartDate]= useState(new Date());
   const router= useRouter();
   const handleDragEnter = (e: Event) => {
     noMoving(e);
@@ -60,9 +59,6 @@ const UploadZone = ({ data, dispatch }: any) => {
     }
   };
   const uploadFiles = async () => {
-    // const byteString = window.atob(data.fileList.split(",")[1]);
-    // console.log(byteString);
-
     let files = data.fileList;
     const formData = new FormData();
     files.forEach((file: any) => formData.append("files", file));
@@ -107,12 +103,6 @@ const UploadZone = ({ data, dispatch }: any) => {
       for (let i = 0; i < data.fileList.length; i++) {
         try {
           data.fileList[i] = await imageCompression(data.fileList[i], options);
-          // const compressed= await imageCompression(data.fileList[i], options);
-          // const reader = new FileReader();
-          // reader.readAsDataURL(compressed);
-          // reader.onloadend = () => {
-          //   data.fileList[i] = reader.result;
-          // }
         } catch (e) {
           console.log(e);
         }
