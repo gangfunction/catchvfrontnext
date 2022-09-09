@@ -1,8 +1,9 @@
-import React, {useCallback} from "react";
-import styles from "./DropZone.module.css";
+import React, {useCallback, useState} from "react";
+import styles from "./UploadZone.module.css";
 import UploadForm from "../UploadForm/UploadForm";
 import {useRouter} from "next/router";
 import imageCompression from "browser-image-compression";
+import DateSelect from "./DateSelect/DateSelect";
 
 function noMoving(e: Event) {
   // 새로고침 방지
@@ -11,7 +12,8 @@ function noMoving(e: Event) {
   e.stopPropagation();
 }
 
-const DropZone = ({ data, dispatch }: any) => {
+const UploadZone = ({ data, dispatch }: any) => {
+  const [startDate,setStartDate]= useState(new Date());
   const router= useRouter();
   const handleDragEnter = (e: Event) => {
     noMoving(e);
@@ -65,7 +67,9 @@ const DropZone = ({ data, dispatch }: any) => {
     const formData = new FormData();
     files.forEach((file: any) => formData.append("files", file));
     const userEmail = localStorage.getItem("userEmail") as any;
+    const startDate = localStorage.getItem("startDate") as any;
     formData.append("email",userEmail);
+    formData.append("startDate",startDate);
     console.log(formData.get("email"));
 
 
@@ -197,10 +201,15 @@ const DropZone = ({ data, dispatch }: any) => {
             DeleteFileList
           </span>
         </button>
-
       )}
+      <div>
+        <span> Please selected Start Date</span>
+        <DateSelect/>
+      </div>
+
+
     </>
   );
 };
 
-export default DropZone;
+export default UploadZone;

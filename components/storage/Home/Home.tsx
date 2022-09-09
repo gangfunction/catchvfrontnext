@@ -1,5 +1,5 @@
 import React, { useReducer, useState } from "react";
-import DropZone from "../DropZone/DropZone";
+import UploadZone from "../UploadZone/UploadZone";
 
 export default function Home() {
   const reducer = (state: any, action: any) => {
@@ -36,7 +36,7 @@ export default function Home() {
   return (
     <div>
       <main>
-        <DropZone data={data} dispatch={dispatch} />
+        <UploadZone data={data} dispatch={dispatch} />
       </main>
       <footer></footer>
     </div>
