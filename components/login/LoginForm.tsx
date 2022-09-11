@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 // eslint-disable-next-line import/extensions
 import AuthContext from "../../store/auth";
 
-const LoginForm = (props: any) => {
+const LoginForm = () => {
   const authCtx = useContext(AuthContext);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -12,7 +12,7 @@ const LoginForm = (props: any) => {
   const [userPassword, setUserPassword] = useState("");
 
   const [isEmail, setIsEmail] = useState<boolean>(false);
-  const [isPassword, setIsPassword] = useState<boolean>(false);
+  const [, setIsPassword] = useState<boolean>(false);
 
   const [emailMessage, setEmailMessage] = useState<string>("");
   const emailInputRef = useRef<HTMLInputElement>(null) as any;
@@ -26,6 +26,7 @@ const LoginForm = (props: any) => {
 
       const enteredEmail = emailInputRef.current.value;
       const enteredPassword = passwordInputRef.current.value;
+      /** 로그인할때 쿠키에 이메일 저장 */
       localStorage.setItem('userEmail', enteredEmail);
       // api 서버 주소
       fetch('http://localhost:8080/user/api', {
@@ -60,7 +61,7 @@ const LoginForm = (props: any) => {
     },
     [authCtx, router]
   );
-  //이메일 정규식 체크
+  /**이메일 정규식 체크*/
   const onChangeEmail = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const emailRegex =
@@ -78,7 +79,7 @@ const LoginForm = (props: any) => {
     },
     []
   );
-  //패스워드 정규식 체크
+  /**패스워드 정규식 체크*/
   const onChangePassword = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const passwordRegex =

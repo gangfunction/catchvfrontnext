@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react";
+import React, { useReducer } from "react";
 import UploadZone from "../UploadZone/UploadZone";
 
 export default function Home() {

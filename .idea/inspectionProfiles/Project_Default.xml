@@ -1,0 +1,8 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="RequiredAttributes" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myAdditionalRequiredHtmlAttributes" value="nonce,options,activeInnerRadiusOffset,arcLabelsComponent,arcLabelsRadiusOffset,arcLinkLabelsDiagonalLength,arcLinkLabelsOffset,arcLinkLabelsStraightLength,arcLinkLabelsTextOffset,arcLinkLabel,component,enableArcLabels,endAngle,fit,height,id,isInteractive,renderWrapper,role,sortByValue,startAngle,theme,tooltip,value,width" />
+    </inspection_tool>
+  </profile>
+</component>

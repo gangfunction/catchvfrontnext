@@ -1,5 +1,4 @@
 import React from "react";
-
 const UploadForm = ({ fileData }: any) => {
   return (
     <>

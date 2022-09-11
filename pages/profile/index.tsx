@@ -1,6 +1,6 @@
 import PasswordChangeForm from "../../components/member/PasswordChangeForm";
 import ProfileStatus from "../../components/profile/ProfileStatus";
-import UrlStatus from "../../components/profile/UrlStatus";
+import UrlStatus from "../../components/profile/UrlStatus/UrlStatus";
 
 function ProfilePage() {
   return (

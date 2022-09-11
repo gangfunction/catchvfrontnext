@@ -6,10 +6,13 @@ import AuthContext from "../../store/auth";
 const MainNavigation = () => {
     const router = useRouter();
     const authCtx = useContext(AuthContext);
-
+    /** 로그아웃을 할때 백엔드로 db에 로그아웃을 전송하고,
+     *  사이트에서 로그인 상태를 초기화 하는 함수
+     *  */
     const logoutHandler = () => {
+      /**
+       * 사이트에서 상태를 로그아웃 상태로 전환*/
       authCtx.logout();
-      //토큰 또는 로그인 정보를 저장했다가 백엔드에 로그아웃 정보 전송
       fetch('http://localhost:8080/user/api/logout', {
         method: "POST",
         body: JSON.stringify({
@@ -41,7 +44,7 @@ const MainNavigation = () => {
           <Link href="/">
               <div >
                 <button>
-                <img className="max-w-full h-48" src="https://velog.velcdn.com/images/sungrok7/post/38de0e6c-f294-4924-987b-ead26844e7d8/image.png"/>
+                <img className="max-w-full h-48" src="https://velog.velcdn.com/images/sungrok7/post/38de0e6c-f294-4924-987b-ead26844e7d8/image.png" alt=""/>
                 </button>
               </div>
           </Link>
@@ -80,7 +83,6 @@ const MainNavigation = () => {
             </ul>
           </nav>
         </header>
-
       </>
     );
   }

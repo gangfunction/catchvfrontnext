@@ -5,31 +5,49 @@ import {useRouter} from "next/router";
 import imageCompression from "browser-image-compression";
 import DateSelect from "./DateSelect/DateSelect";
 
+/**
+ *  e.preventDefault()는 새로고침을 방지하기위한 함수이고,
+ *  e.stopPropagation()는 부모컴포넌트의 재평가를 방지하기위한 함수이다.
+ */
 function noMoving(e: Event) {
-  // 새로고침 방지
   e.preventDefault();
-  // 부모 컴포넌트의 리밸류에이션 방지
   e.stopPropagation();
 }
 
-const UploadZone = ({ data, dispatch }: any) => {
-  const router= useRouter();
+/**
+ * 업로드존에서 일어나는 행위들을 보여주는 함수
+ */
+const UploadZone = ({data, dispatch}: any) => {
+  const router = useRouter();
+  /**
+   * 업로드 존에 들어왔을때 나타나는 상태전환을 해주는 함수이다.
+   * @param e
+   */
   const handleDragEnter = (e: Event) => {
     noMoving(e);
-    dispatch({ type: "SET_IN_DROP_ZONE", inDropZone: true });
+    dispatch({type: "SET_IN_DROP_ZONE", inDropZone: true});
   };
-
+  /**
+   * 업로드존에서 나갈때 나타나는 상태전환을 해주는 함수이다.
+   * @param e
+   */
   const handleDragLeave = (e: Event) => {
     noMoving(e);
-    dispatch({ type: "SET_IN_DROP_ZONE", inDropZone: false });
+    dispatch({type: "SET_IN_DROP_ZONE", inDropZone: false});
   };
-
+  /**
+   * 업로드 존 위에 드래깅 상태로 존재할때 나타내는 함수이다.
+   * @param e
+   */
   const handleDragOver = (e: any) => {
     noMoving(e);
     e.dataTransfer.dropEffect = "copy";
-    dispatch({ type: "SET_IN_DROP_ZONE", inDropZone: true });
+    dispatch({type: "SET_IN_DROP_ZONE", inDropZone: true});
   };
-
+  /**
+   * 업로드 존위에 드래깅 액션을 그만둘때 나타내는 함수이다.
+   * @param e
+   */
   const handleDrop = (e: any) => {
     noMoving(e);
     let files = [...e.dataTransfer.files];
@@ -37,11 +55,14 @@ const UploadZone = ({ data, dispatch }: any) => {
       const existingFiles = data.fileList.map((f: any) => f.name);
       files = files.filter((f) => !existingFiles.includes(f.name));
 
-      dispatch({ type: "ADD_FILE_TO_LIST", files });
-      dispatch({ type: "SET_IN_DROP_ZONE", inDropZone: false });
+      dispatch({type: "ADD_FILE_TO_LIST", files});
+      dispatch({type: "SET_IN_DROP_ZONE", inDropZone: false});
     }
   };
-
+  /**
+   * 업로드존에 들어온 파일들을 리스트형식으로 표시해주는 함수이다.
+   * @param e
+   */
   const handleFileSelect = (e: any) => {
     let files = [...e.target.files];
 
@@ -49,23 +70,25 @@ const UploadZone = ({ data, dispatch }: any) => {
       const existingFiles = data.fileList.map((f: any) => f.name);
       files = files.filter((f) => !existingFiles.includes(f.name));
 
-      dispatch({ type: "ADD_FILE_TO_LIST", files });
+      dispatch({type: "ADD_FILE_TO_LIST", files});
     }
   };
+  /**파일 리스트를 삭제할때 사용하는 함수*/
   const handleFileDelete = () => {
     const files = data.fileList;
     if (files && files.length > 0) {
-      dispatch({ type: "DELETE_FILE_LIST", files });
+      dispatch({type: "DELETE_FILE_LIST", files});
     }
   };
+  /** 파일 업로드할때 사용되는 함수*/
   const uploadFiles = async () => {
     let files = data.fileList;
     const formData = new FormData();
     files.forEach((file: any) => formData.append("files", file));
     const userEmail = localStorage.getItem("userEmail") as any;
     const startDate = localStorage.getItem("startDate") as any;
-    formData.append("email",userEmail);
-    formData.append("startDate",startDate);
+    formData.append("email", userEmail);
+    formData.append("startDate", startDate);
     console.log(formData.get("email"));
 
 
@@ -73,13 +96,13 @@ const UploadZone = ({ data, dispatch }: any) => {
       method: "POST",
       headers: {},
       body: formData,
-    }).then( () =>{
-        router.push('/');
-      })) as any;
+    }).then(() => {
+      router.push('/');
+    })) as any;
     if (response) {
-      if(response.status === 200) {
+      if (response.status === 200) {
         alert("Files uploaded successfully");
-      }else {
+      } else {
         alert(response.status);
       }
     }
@@ -87,13 +110,16 @@ const UploadZone = ({ data, dispatch }: any) => {
   useCallback((id: number): void => {
     data.fileList.filter((data: any) => data.id !== id);
   }, []);
-  const fileSizeCalculator = ()=>{
-    let result =0;
-    for (let i=0; i<data.fileList.length; i++){
-      result +=data.fileList[i].size
+  const fileSizeCalculator = () => {
+    let result = 0;
+    for (let i = 0; i < data.fileList.length; i++) {
+      result += data.fileList[i].size
     }
-    return (result/1000000).toPrecision(2);
+    return (result / 1000000).toPrecision(2);
   }
+  /**
+   * 이미지를 압축할때 쓰는 함수이다.
+   */
   const compressHandler = async () => {
     if (data.fileList.length > 0) {
       const options = {
@@ -112,7 +138,6 @@ const UploadZone = ({ data, dispatch }: any) => {
     alert("File Compression Completed!")
     await router.push('/service')
   }
-
 
 
   return (
@@ -149,36 +174,40 @@ const UploadZone = ({ data, dispatch }: any) => {
         <label htmlFor="fileSelect">Select Files</label>
         <h3 className={styles.uploadMessage}>or drop your files here</h3>
       </div>
-      <UploadForm fileData={data} onRemoveList={handleFileDelete} />
-      <button onChange={(e:any)=>fileSizeCalculator}
-        className="relative inline-block px-6 py-2 text-sm font-bold tracking-widest text-black uppercase border-2 border-current group-active:text-opacity-0">
+      <UploadForm fileData={data} onRemoveList={handleFileDelete}/>
+      <button onChange={() => fileSizeCalculator}
+              className="relative inline-block px-6 py-2 text-sm font-bold tracking-widest text-black uppercase border-2 border-current group-active:text-opacity-0">
         Total File Size
-      <p>
-        {fileSizeCalculator()} MB
-      </p>
+        <p>
+          {fileSizeCalculator()} MB
+        </p>
       </button>
       <button
         onClick={compressHandler}
         onChange={fileSizeCalculator}
         className="relative inline-block group focus:outline-none focus:ring"
       >
-        <span className="absolute inset-0 transition-transform translate-x-1.5 translate-y-1.5 bg-yellow-300 group-hover:translate-y-0 group-hover:translate-x-0"></span>
-        <span className="relative inline-block px-6 py-2 text-sm font-bold tracking-widest text-black uppercase border-2 border-current group-active:text-opacity-0">
+        <span
+          className="absolute inset-0 transition-transform translate-x-1.5 translate-y-1.5 bg-yellow-300 group-hover:translate-y-0 group-hover:translate-x-0"></span>
+        <span
+          className="relative inline-block px-6 py-2 text-sm font-bold tracking-widest text-black uppercase border-2 border-current group-active:text-opacity-0">
             Compress File
           </span>
       </button>
-        {data.fileList.length > 0 && (
-          <button
-            type="submit"
-            onClick={uploadFiles}
-            className="relative inline-block group focus:outline-none focus:ring"
-          >
-            <span className="absolute inset-0 transition-transform translate-x-1.5 translate-y-1.5 bg-yellow-300 group-hover:translate-y-0 group-hover:translate-x-0"></span>
-            <span className="relative inline-block px-6 py-2 text-sm font-bold tracking-widest text-black uppercase border-2 border-current group-active:text-opacity-0">
+      {data.fileList.length > 0 && (
+        <button
+          type="submit"
+          onClick={uploadFiles}
+          className="relative inline-block group focus:outline-none focus:ring"
+        >
+          <span
+            className="absolute inset-0 transition-transform translate-x-1.5 translate-y-1.5 bg-yellow-300 group-hover:translate-y-0 group-hover:translate-x-0"></span>
+          <span
+            className="relative inline-block px-6 py-2 text-sm font-bold tracking-widest text-black uppercase border-2 border-current group-active:text-opacity-0">
             Upload
           </span>
-          </button>
-        )}
+        </button>
+      )}
 
       {data.fileList.length > 0 && (
         <button
@@ -186,8 +215,10 @@ const UploadZone = ({ data, dispatch }: any) => {
           onClick={handleFileDelete}
           className="relative inline-block group focus:outline-none focus:ring"
         >
-          <span className="absolute inset-0 transition-transform translate-x-1.5 translate-y-1.5 bg-yellow-300 group-hover:translate-y-0 group-hover:translate-x-0"></span>
-          <span className="relative inline-block px-6 py-2 text-sm font-bold tracking-widest text-black uppercase border-2 border-current group-active:text-opacity-0">
+          <span
+            className="absolute inset-0 transition-transform translate-x-1.5 translate-y-1.5 bg-yellow-300 group-hover:translate-y-0 group-hover:translate-x-0"></span>
+          <span
+            className="relative inline-block px-6 py-2 text-sm font-bold tracking-widest text-black uppercase border-2 border-current group-active:text-opacity-0">
             DeleteFileList
           </span>
         </button>

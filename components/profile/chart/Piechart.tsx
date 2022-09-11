@@ -1,40 +1,24 @@
 import { ResponsivePie } from '@nivo/pie';
-
-const Piechart = () => {
+const Piechart = (inspected:any) => {
   const data =[
     {
-      "id": "php",
-      "label": "php",
-      "value": 73,
+      "id": "inspected",
+      "label": "inspected",
+      "value": inspected["inspected"],
       "color": "hsl(26, 70%, 50%)"
     },
     {
-      "id": "java",
-      "label": "java",
-      "value": 61,
+      "id": "detected",
+      "label": "detected",
+      "value": inspected["detected"],
       "color": "hsl(165, 70%, 50%)"
-    },
-    {
-      "id": "hack",
-      "label": "hack",
-      "value": 399,
-      "color": "hsl(268, 70%, 50%)"
-    },
-    {
-      "id": "lisp",
-      "label": "lisp",
-      "value": 391,
-      "color": "hsl(338, 70%, 50%)"
-    },
-    {
-      "id": "scala",
-      "label": "scala",
-      "value": 308,
-      "color": "hsl(169, 70%, 50%)"
     }
   ]
+
   return(
     <>
+
+
       <ResponsivePie
         data={data}
         margin={{ top: 3, right: 0, bottom: 3, left: 100 }}
@@ -85,13 +69,13 @@ const Piechart = () => {
         fill={[
           {
             match: {
-              id: 'ruby'
+              id: 'inspected'
             },
-            id: 'dots'
+            id: 'lines'
           },
           {
             match: {
-              id: 'c'
+              id: 'detected'
             },
             id: 'dots'
           },
@@ -136,6 +120,7 @@ const Piechart = () => {
         transitionMode="middleAngle"
         legends={[]}
       />
+
     </>
   )
 }
