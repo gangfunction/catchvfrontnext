@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import Piechart from "../chart/Piechart";
 
 const UrlListForm = () => {
@@ -20,22 +20,27 @@ const UrlListForm = () => {
         return alert("Error: " + res);
       }
     }).then((json) => {
-      localStorage.setItem("result", json[0]);
       localStorage.setItem("urlTotalCount",json[0]["videoCount"]);
       localStorage.setItem("urlsCount",json[0]["detectCount"]);
       localStorage.setItem("urlList",json[0]["urlList"])
-      console.log(json[0]['urlList']);
       console.log(localStorage.getItem("urlList"));
-      console.log(Array(localStorage.getItem("urlList"))[0]);
-      const newarray= localStorage.getItem("urlList").split(",") as any;
-      console.log(newarray);
-      localStorage.setItem("newarray", newarray);
-      console.log(json[0]);
+      const tmpArray= localStorage.getItem("urlList").replace("[","")
+      const tmp2Array = tmpArray.replace("]","");
+      let array = tmp2Array.split(",");
+      console.log(array)
+      console.log(Array.isArray(array));
+      for(let i=0; i<array.length; i++){
+        console.log(array[i])
+      }
+      // @ts-ignore
+      localStorage.setItem("newarray", array);
       setShow(true);
+      console.log(localStorage.getItem("newarray"));
 
 
     });
   }
+  // @ts-ignore
   return (
     <>
       <button
@@ -63,17 +68,17 @@ const UrlListForm = () => {
 
           </div>
       }
+
       {show && Array(localStorage.getItem('newarray')).map((i: any) => {
         return (
-          <a className=" group" key={Array(localStorage.getItem('newarray'))[i]}>
-            <ol key={Array(localStorage.getItem('newarray'))[i]}>
+          <a className=" group" key={localStorage.getItem('newarray').split(',')[i]}>
+            <ol key={localStorage.getItem('newarray').split(',')[i]}>
               <li>
                 <div
-                  className=" flex h-auto justify-between mt-1 transition bg-white border-2 border-black group-hover:-translate-x-2  p-1">
+                  className=" flex h-auto justify-between mt-1  bg-white border-2 border-black  p-1">
                   <div className=" font-bold text-xl sm:text-l">
                     <p>
-                      URL: {i}
-
+                      {i}
                     </p>
                   </div>
                 </div>
