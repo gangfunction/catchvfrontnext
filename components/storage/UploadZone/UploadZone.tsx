@@ -97,15 +97,16 @@ const UploadZone = ({data, dispatch}: any) => {
       headers: {},
       body: formData,
     }).then(() => {
+      if (response) {
+        if (response.status === 200) {
+          alert("Files uploaded successfully");
+        } else {
+          alert(response.status);
+        }
+      }
       router.push('/');
     })) as any;
-    if (response) {
-      if (response.status === 200) {
-        alert("Files uploaded successfully");
-      } else {
-        alert(response.status);
-      }
-    }
+
   };
   useCallback((id: number): void => {
     data.fileList.filter((data: any) => data.id !== id);
