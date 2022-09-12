@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useState} from "react";
 import styles from "./UploadZone.module.css";
 import UploadForm from "../UploadForm/UploadForm";
 import {useRouter} from "next/router";
@@ -18,6 +18,7 @@ function noMoving(e: Event) {
  * 업로드존에서 일어나는 행위들을 보여주는 함수
  */
 const UploadZone = ({data, dispatch}: any) => {
+  const [upload, setUploaded] = useState(false);
   const router = useRouter();
   /**
    * 업로드 존에 들어왔을때 나타나는 상태전환을 해주는 함수이다.
@@ -57,6 +58,8 @@ const UploadZone = ({data, dispatch}: any) => {
 
       dispatch({type: "ADD_FILE_TO_LIST", files});
       dispatch({type: "SET_IN_DROP_ZONE", inDropZone: false});
+      setUploaded(true);
+
     }
   };
   /**
@@ -72,6 +75,7 @@ const UploadZone = ({data, dispatch}: any) => {
 
       dispatch({type: "ADD_FILE_TO_LIST", files});
     }
+    setUploaded(true);
   };
   /**파일 리스트를 삭제할때 사용하는 함수*/
   const handleFileDelete = () => {
@@ -79,6 +83,7 @@ const UploadZone = ({data, dispatch}: any) => {
     if (files && files.length > 0) {
       dispatch({type: "DELETE_FILE_LIST", files});
     }
+    setUploaded(false);
   };
   /** 파일 업로드할때 사용되는 함수*/
   const uploadFiles = async () => {
@@ -143,7 +148,7 @@ const UploadZone = ({data, dispatch}: any) => {
 
   return (
     <>
-      <div
+      {!upload &&<div
         className={styles.dropzone}
         onDragEnter={(e: any) => handleDragEnter(e)}
         onDragOver={(e: any) => handleDragOver(e)}
@@ -175,7 +180,11 @@ const UploadZone = ({data, dispatch}: any) => {
         <label htmlFor="fileSelect">Select Files</label>
         <h3 className={styles.uploadMessage}>or drop your files here</h3>
       </div>
-      <UploadForm fileData={data} onRemoveList={handleFileDelete}/>
+      }
+
+
+      {upload && <UploadForm fileData={data} onRemoveList={handleFileDelete}/>
+      }
       <button onChange={() => fileSizeCalculator}
               className="relative inline-block px-6 py-2 text-sm font-bold tracking-widest text-black uppercase border-2 border-current group-active:text-opacity-0">
         Total File Size
