@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useState} from "react";
 import styles from "./UploadZone.module.css";
 import UploadForm from "../UploadForm/UploadForm";
 import {useRouter} from "next/router";
@@ -65,10 +65,10 @@ const UploadZone = ({data, dispatch}: any) => {
   };
   /**
    * 업로드존에 들어온 파일들을 리스트형식으로 표시해주는 함수이다.
-   * @param e
+   * @param e 이벤트가 선택될 경우 선택한 파일들을 매핑해준다.
    */
-  const handleFileSelect = (e: any) => {
-    let files = [...e.target.files];
+  const handleFileSelect = (e:any) => {
+    let files = [...e.current.files];
 
     if (files && files.length > 0) {
       const existingFiles = data.fileList.map((f: any) => f.name);
@@ -115,9 +115,10 @@ const UploadZone = ({data, dispatch}: any) => {
     })) as any;
 
   };
-  useCallback((id: number): void => {
-    data.fileList.filter((data: any) => data.id !== id);
-  }, []);
+  /**
+   * 파일들의 용량의 총합을 계산해주고,
+   * toPrecision으로 mb단위의 소숫점 2자리까지 표현해준다.
+   */
   const fileSizeCalculator = () => {
     let result = 0;
     for (let i = 0; i < data.fileList.length; i++) {
@@ -143,9 +144,17 @@ const UploadZone = ({data, dispatch}: any) => {
       }
 
     }
+    /**
+     * 파일압축이 성공했을때 나타내는 메시지,
+     * 후에 서비스 페이지로 리다이렉션 해준다.
+     */
     alert("File Compression Completed!")
     await router.push('/service')
   }
+  /**
+   * 날짜선택이 이루어진 경우 하위컴포넌트에서 호출되어
+   * setDatePick을 true로 변환해준다.
+   */
   const dateFunction = ()=>{
     setDatePick(true);
   }

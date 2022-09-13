@@ -1,6 +1,6 @@
 import React, {useState} from "react";
-import Piechart from "../chart/Piechart";
 import PasswordChangeForm from "../../member/PasswordChangeForm";
+import Piechart from "./Chart/Piechart";
 
 const ResultAndMemberForm = () => {
   const [show, setShow] = useState(false);

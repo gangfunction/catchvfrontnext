@@ -1,9 +1,9 @@
-import Home from "../../components/storage/Home/Home";
+import Upload from "../../components/storage/Upload/Upload";
 
 const ServicePage = () => {
   return (
     <>
-        <Home />
+        <Upload/>
     </>
   );
 };

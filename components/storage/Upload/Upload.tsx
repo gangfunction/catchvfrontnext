@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
-import UploadZone from "../UploadZone/UploadZone";
+import UploadZone from "./UploadZone/UploadZone";
 
-export default function Home() {
+const Upload = ()=> {
   const reducer = (state: any, action: any) => {
     switch (action.type) {
       case "SET_IN_DROP_ZONE":
@@ -42,3 +42,4 @@ export default function Home() {
     </div>
   );
 }
+export default Upload;
