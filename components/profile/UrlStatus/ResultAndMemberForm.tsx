@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import PasswordChangeForm from "../../member/PasswordChangeForm";
-import Piechart from "./Chart/Piechart";
 
 const ResultAndMemberForm = () => {
   const [show, setShow] = useState(false);
@@ -24,20 +23,11 @@ const ResultAndMemberForm = () => {
       localStorage.setItem("urlTotalCount",json[0]["videoCount"]);
       localStorage.setItem("urlsCount",json[0]["detectCount"]);
       localStorage.setItem("urlList",json[0]["urlList"])
-      console.log(localStorage.getItem("urlList"));
       // @ts-ignore
-      const tmpArray= localStorage.getItem("urlList").replace("[","")
+      const tmpArray= localStorage!.getItem("urlList").replace("[","")
       const tmp2Array = tmpArray.replace("]","");
-      let array = tmp2Array.split(",");
-      console.log(array)
-      console.log(Array.isArray(array));
-      for(let i=0; i<array.length; i++){
-        console.log(array[i])
-      }
-      // @ts-ignore
-      localStorage.setItem("newarray", array);
+      localStorage.setItem("newarray", tmp2Array);
       setShow(true);
-      console.log(localStorage.getItem("newarray"));
 
 
     });
@@ -47,7 +37,6 @@ const ResultAndMemberForm = () => {
       setShow(false);
     }
   }
-  // @ts-ignore
   return (
     <>
       <div className="flex justify-between">
@@ -78,29 +67,29 @@ const ResultAndMemberForm = () => {
       </div>
 
       {show &&
-          <div className="flex h-32 text-xl">
-              <span className="w-auto">
+          <div className="grid  grid-cols-2 h-auto text-2xl font-mono w-auto text-center">
+              <span className="p-3">
                   Total Count:{localStorage.getItem('urlTotalCount')}
-                  <br/>
-                  Detected Count:{localStorage.getItem('urlsCount')}
               </span>
-              <Piechart inspected={localStorage.getItem('urlTotalCount')} detected={localStorage.getItem('urlsCount')}/>
+              <span className="p-3">
+                  Detected Count:{localStorage.getItem('urlsCount')}
 
+              </span>
 
           </div>
       }
 
-      {show && Array(localStorage.getItem('newarray')).map((i: any) => {
+      {show && (localStorage!.getItem("newarray")!.split(",")).map((url:any) => {
+
         return (
-          // @ts-ignore
-          <a className=" group" key={localStorage.getItem('newarray').split(',')[i]}>
-            <ol key={localStorage.getItem('newarray').split(',')[i]}>
+          <a className=" group" key={url}>
+            <ol key={url}>
               <li>
                 <div
                   className=" flex h-auto justify-between mt-1  bg-white border-2 border-black  p-1">
                   <div className=" font-bold text-xl sm:text-l">
                     <p>
-                      {i}
+                      {url}
                     </p>
                   </div>
                 </div>
@@ -108,8 +97,7 @@ const ResultAndMemberForm = () => {
             </ol>
           </a>
         );
-      })
-      }
+        })}
       {!show &&<PasswordChangeForm />}
 
     </>

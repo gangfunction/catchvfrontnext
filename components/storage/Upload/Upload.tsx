@@ -1,6 +1,10 @@
 import React, { useReducer } from "react";
 import UploadZone from "./UploadZone/UploadZone";
 
+/**
+ * 업로드에서 사용할 액션타입과 상태를 통한 리듀서 사용
+ * @constructor
+ */
 const Upload = ()=> {
   const reducer = (state: any, action: any) => {
     switch (action.type) {

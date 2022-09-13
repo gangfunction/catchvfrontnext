@@ -1,7 +1,6 @@
 import React, { useState, useRef, useContext, useCallback } from "react";
 import { useRouter } from "next/router";
 import AuthContext from "../../../store/auth";
-// eslint-disable-next-line import/extensions
 
 const LoginForm = () => {
   const authCtx = useContext(AuthContext);
@@ -18,9 +17,10 @@ const LoginForm = () => {
   const emailInputRef = useRef<HTMLInputElement>(null) as any;
   const passwordInputRef = useRef<HTMLInputElement>(null) as any;
 
-
-  const submitHandler = useCallback(
-    (event: any) => {
+  /**
+   * 이메일을 보낼때 사용하는 함수
+   */
+  const submitHandler = useCallback((event: { preventDefault: () => void; stopPropagation: () => void; }) => {
       event.preventDefault();
       event.stopPropagation();
 
@@ -39,24 +39,13 @@ const LoginForm = () => {
           "Content-Type": "application/json",
         },
       })
-        .then((res: any) => {
-          setIsLoading(false);
-          if (res.ok) {
-            return res;
-          }
-          return res.then(() => {
-          });
-        })
         .then((data:any) => {
+          setIsLoading(false);
           console.log(data);
           authCtx.login(enteredEmail);
-          localStorage.setItem('token', enteredEmail);
-          console.log(localStorage.getItem('token'),"then");
-
         })
-        .catch((err: any) => {
-          console.log(err.message);
-
+        .catch(() => {
+          alert("Wrong with your email or password");
         });
     },
     [authCtx, router]

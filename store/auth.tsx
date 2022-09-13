@@ -15,12 +15,15 @@ const retrieveStoredToken = () => {
   }
 };
 
+
 export const AuthContextProvider = (props: any) => {
   const tokenData = retrieveStoredToken();
   let initialToken;
+
   if (tokenData) {
     initialToken = tokenData.token;
   }
+
   const [token, setToken] = useState(initialToken);
 
 
@@ -34,6 +37,8 @@ export const AuthContextProvider = (props: any) => {
     setToken(null);
     localStorage.removeItem("token");
   }, []);
+
+
 
   const contextValue = {
     token,
