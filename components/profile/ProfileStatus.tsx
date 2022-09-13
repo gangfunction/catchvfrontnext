@@ -2,12 +2,10 @@ const ProfileStatus = ()=>{
 
   return (
     <>
-    <section>
-      <h2>Profile Status</h2>
-      <div>
-        <p>Status1</p>
-        <p>Status2</p>
-        <p>Status3</p>
+    <section className="flex flex-col content-center text-center">
+      <span className="text-2xl font-mono">Profile Status</span>
+      <div className="text-xl ">
+        <p>User ID: {localStorage.getItem('userEmail')}</p>
       </div>
     </section>
     </>

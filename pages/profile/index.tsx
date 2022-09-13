@@ -1,13 +1,12 @@
 import PasswordChangeForm from "../../components/member/PasswordChangeForm";
 import ProfileStatus from "../../components/profile/ProfileStatus";
-import UrlStatus from "../../components/profile/UrlStatus/UrlStatus";
+import ResultStatus from "../../components/profile/UrlStatus/ResultStatus";
 
-function ProfilePage() {
+const ProfilePage = () => {
   return (
     <>
       <ProfileStatus/>
-      <UrlStatus/>
-      <PasswordChangeForm />
+      <ResultStatus/>
 
     </>
   );

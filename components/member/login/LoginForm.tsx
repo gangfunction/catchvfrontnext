@@ -1,7 +1,7 @@
 import React, { useState, useRef, useContext, useCallback } from "react";
 import { useRouter } from "next/router";
+import AuthContext from "../../../store/auth";
 // eslint-disable-next-line import/extensions
-import AuthContext from "../../store/auth";
 
 const LoginForm = () => {
   const authCtx = useContext(AuthContext);

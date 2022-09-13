@@ -28,24 +28,24 @@ const PasswordChangeForm = () => {
   };
   return (
     <>
-      <form onSubmit={submitHandler}>
-        <div>
-          <label htmlFor="new-password" className="relative block p-3 border-2 border-gray-200 rounded-lg">
-            <input
-              className=" bg-orange-50 w-full px-0 pt-3.0 pb-0 text-sm placeholder-transparent border-none focus:ring-0 peer"
-              placeholder="userEmail"
-              minLength={7}
-              type="password"
-              id="new-password"
-              ref={newPasswordInputRef}
-            />
-            <span className="absolute bg-orange-50 text-xs font-medium text-gray-500 transition-all left-3 peer-focus:text-xs peer-focus:top-3 peer-focus:translate-y-0 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-sm">
-              New Password
-            </span>
-          </label>
-          <button>Change password</button>
+      <div className="flex flex-col items-center">
+        <span className="text-2xl font-mono">Password Change</span>
+        <form onSubmit={submitHandler} className=" w-full max-w-sm">
+        <div className="flex items-center border-b border-blue-500 py-2">
+          <input
+            className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+            type="text" placeholder="New Password" aria-label="Full name"
+            onChange={newPasswordInputRef}
+                   />
+          <button
+            className="flex-shrink-0 bg-blue-500 hover:bg-blue-300 border-blue-500 hover:border-blue-300 text-sm border-4 text-white py-1 px-2 rounded"
+            type="button">
+            Change
+          </button>
         </div>
       </form>
+      </div>
+
     </>
   );
 };

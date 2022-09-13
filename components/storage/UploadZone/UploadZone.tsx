@@ -19,6 +19,7 @@ function noMoving(e: Event) {
  */
 const UploadZone = ({data, dispatch}: any) => {
   const [upload, setUploaded] = useState(false);
+  const [datepick, setDatePick] = useState(false);
   const router = useRouter();
   /**
    * 업로드 존에 들어왔을때 나타나는 상태전환을 해주는 함수이다.
@@ -76,6 +77,7 @@ const UploadZone = ({data, dispatch}: any) => {
       dispatch({type: "ADD_FILE_TO_LIST", files});
     }
     setUploaded(true);
+
   };
   /**파일 리스트를 삭제할때 사용하는 함수*/
   const handleFileDelete = () => {
@@ -144,10 +146,19 @@ const UploadZone = ({data, dispatch}: any) => {
     alert("File Compression Completed!")
     await router.push('/service')
   }
+  const dateFunction = ()=>{
+    setDatePick(true);
+  }
 
 
   return (
     <>
+      {upload &&<div className="flex flex-col  content-center ">
+        <span className="font-mono text-2xl ">
+          Please Select Start Date
+        </span>
+        <DateSelect propFunction={dateFunction}/>
+      </div>}
       {!upload &&<div
         className={styles.dropzone}
         onDragEnter={(e: any) => handleDragEnter(e)}
@@ -186,7 +197,7 @@ const UploadZone = ({data, dispatch}: any) => {
       {upload && <UploadForm fileData={data} onRemoveList={handleFileDelete}/>
       }
       <button onChange={() => fileSizeCalculator}
-              className="relative inline-block px-6 py-2 text-sm font-bold tracking-widest text-black uppercase border-2 border-current group-active:text-opacity-0">
+              className=" relative inline-block px-6 py-2 text-sm font-bold tracking-widest text-black uppercase border-2 border-current group-active:text-opacity-0">
         Total File Size
         <p>
           {fileSizeCalculator()} MB
@@ -204,20 +215,7 @@ const UploadZone = ({data, dispatch}: any) => {
             Compress File
           </span>
       </button>
-      {data.fileList.length > 0 && (
-        <button
-          type="submit"
-          onClick={uploadFiles}
-          className="relative inline-block group focus:outline-none focus:ring"
-        >
-          <span
-            className="absolute inset-0 transition-transform translate-x-1.5 translate-y-1.5 bg-yellow-300 group-hover:translate-y-0 group-hover:translate-x-0"></span>
-          <span
-            className="relative inline-block px-6 py-2 text-sm font-bold tracking-widest text-black uppercase border-2 border-current group-active:text-opacity-0">
-            Upload
-          </span>
-        </button>
-      )}
+
 
       {data.fileList.length > 0 && (
         <button
@@ -233,10 +231,21 @@ const UploadZone = ({data, dispatch}: any) => {
           </span>
         </button>
       )}
-      <div>
-        <span> Please selected Start Date</span>
-        <DateSelect/>
-      </div>
+      {data.fileList.length >0 && datepick &&(
+        <button
+          type="submit"
+          onClick={uploadFiles}
+          className=" relative inline-block group focus:outline-none focus:ring"
+        >
+          <span
+            className="absolute inset-0 transition-transform translate-x-1.5 translate-y-1.5 bg-yellow-300 group-hover:translate-y-0 group-hover:translate-x-0"></span>
+          <span
+            className=" relative inline-block px-6 py-2 text-sm font-bold tracking-widest text-black uppercase border-2 border-current group-active:text-opacity-0">
+            Upload
+          </span>
+        </button>
+      )}
+
 
 
     </>

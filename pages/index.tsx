@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import AuthContext from "../store/auth";
-import LoginForm from "../components/login/LoginForm";
-import RegisterForm from "../components/register/RegisterForm";
+import LoginForm from "../components/member/login/LoginForm";
+import RegisterForm from "../components/member/register/RegisterForm";
 
 const HomePage = () => {
   const [isLogin, setIsLogin] = useState(false);
