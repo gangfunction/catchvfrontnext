@@ -42,7 +42,6 @@ const Upload = ()=> {
       <main>
         <UploadZone data={data} dispatch={dispatch} />
       </main>
-      <footer></footer>
     </div>
   );
 }

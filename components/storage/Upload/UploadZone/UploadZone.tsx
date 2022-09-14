@@ -68,11 +68,11 @@ const UploadZone = ({data, dispatch}: any) => {
    * @param e 이벤트가 선택될 경우 선택한 파일들을 매핑해준다.
    */
   const handleFileSelect = (e:any) => {
-    let files = [...e.current.files];
+    let files = [...e.currentTarget.files];
 
     if (files && files.length > 0) {
       const existingFiles = data.fileList.map((f: any) => f.name);
-      files = files.filter((f) => !existingFiles.includes(f.name));
+      files = files.filter((f: any) => !existingFiles.includes(f.name));
 
       dispatch({type: "ADD_FILE_TO_LIST", files});
     }
