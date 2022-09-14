@@ -31,7 +31,7 @@ class MyDocument extends Document {
           <meta property="og:title" content="Catch V"/>
           <meta property="og:type" content="website"/>
           <meta property="og:url" content=""/>
-          <meta content="세상의 바람을 바꾸기 위해" property="og:description"/>
+          <meta content="AI로 해결하는 디지털 성범죄" property="og:description"/>
           <meta property="og:image" content=""/>
           <meta property="og:article:author" content="Catch V"/>
         </Head>
