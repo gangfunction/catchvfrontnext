@@ -7,7 +7,6 @@ class MyDocument extends Document {
         <Head>
           <title>Catch V</title>
           <meta name="description" content="Our Website Supports for Revenge Porno Victims"/>
-          <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
           <meta property="og:title" content="Catch V"/>
           <meta property="og:type" content="website"/>
           <meta property="og:url" content="https://catchvfrontnext.vercel.app/"/>
@@ -30,9 +29,6 @@ class MyDocument extends Document {
           <meta name="msapplication-TileColor" content="#ffffff"/>
           <meta name="msapplication-TileImage" content="/img/favi/ms-icon-144x144.png"/>
           <meta name="theme-color" content="#ffffff"/>
-
-
-
         </Head>
         <body>
         <Main/>

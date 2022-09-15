@@ -5,13 +5,16 @@ import Layout from "../components/Layout/Layout";
 import { AuthContextProvider } from "../store/auth";
 import Footer from "../components/Layout/Footer/Footer";
 import Header from "../components/Layout/Header/Header";
+import {Head} from "next/document";
 
 function App({ Component, pageProps }: AppProps) {
   return (
     <AuthContextProvider>
       <Layout>
+
         <Header/>
         <main className="relative min-h-full ">
+
           <Component {...pageProps} />
 
         </main>
