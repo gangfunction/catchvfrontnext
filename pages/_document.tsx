@@ -6,6 +6,12 @@ class MyDocument extends Document {
       <Html lang="ko">
         <Head>
           <title>Catch V</title>
+          <meta name="description" content="Our Website Supports for Revenge Porno Victims"/>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+          <meta property="og:title" content="Catch V"/>
+          <meta property="og:type" content="website"/>
+          <meta property="og:url" content="https://catchvfrontnext.vercel.app/"/>
+          <meta content="AI로 해결하는 디지털 성범죄" property="og:description"/>
           <link rel="shortcut icon" href="/icon/favicon.ico"/>
           <link rel="apple-touch-icon" sizes="57x57" href="/icon/apple-icon-57x57.png"/>
           <link rel="apple-touch-icon" sizes="60x60" href="/icon/apple-icon-60x60.png"/>
@@ -26,14 +32,7 @@ class MyDocument extends Document {
           <meta name="theme-color" content="#ffffff"/>
 
 
-          <meta name="description" content="Our Website Supports for Revenge Porno Victims"/>
-          <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-          <meta property="og:title" content="Catch V"/>
-          <meta property="og:type" content="website"/>
-          <meta property="og:url" content=""/>
-          <meta content="AI로 해결하는 디지털 성범죄" property="og:description"/>
-          <meta property="og:image" content=""/>
-          <meta property="og:article:author" content="Catch V"/>
+
         </Head>
         <body>
         <Main/>

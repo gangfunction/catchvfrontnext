@@ -1,8 +1,11 @@
+const dotenvLoad = require("dotenv-load");
+dotenvLoad();
+
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === "true",
 })
 
-module.exports = withBundleAnalyzer({
+module.exports = withBundleAnalyzer( {
   compress :true,
   swcMinify: true,
   reactStrictMode: true,

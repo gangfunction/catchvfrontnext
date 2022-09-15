@@ -40,13 +40,9 @@ const RegisterForm = () => {
       .then((res: any) => {
         setIsLoading(false);
         if (res.ok) {
-          return res.json();
+          alert("Registration Successfully!!")
+          router.reload();
         }
-        return console.log(res);
-      })
-      .then(() => {
-        console.log(enteredEmail, enteredPassword);
-        router.reload();
       })
       .catch((err: any) => {
         alert(err.message);
