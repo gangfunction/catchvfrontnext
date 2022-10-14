@@ -1,5 +1,5 @@
-import React, { useState, useRef, useContext, useCallback } from "react";
-import { useRouter } from "next/router";
+import React, {useState, useRef, useContext, useCallback} from "react";
+import {useRouter} from "next/router";
 import AuthContext from "../../../store/auth";
 import useSWR from 'swr';
 
@@ -15,8 +15,8 @@ const LoginForm = () => {
   const [, setIsPassword] = useState<boolean>(false);
 
   const [emailMessage, setEmailMessage] = useState<string>("");
-  const emailInputRef = useRef<HTMLInputElement>(null) as any;
-  const passwordInputRef = useRef<HTMLInputElement>(null) as any;
+  const emailInputRef = useRef<HTMLInputElement>() as any;
+  const passwordInputRef = useRef<HTMLInputElement>() as any;
 
 
   const {data, error} = useSWR('http://localhost:8080/user/api');
@@ -43,7 +43,7 @@ const LoginForm = () => {
           "Content-Type": "application/json",
         },
       })
-        .then((data:any) => {
+        .then((data: any) => {
           setIsLoading(false);
           console.log(data);
           authCtx.login(enteredEmail);
@@ -58,7 +58,7 @@ const LoginForm = () => {
   const onChangeEmail = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const emailRegex =
-        /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+        /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(]?)$/;
       const emailCurrent = e.target.value;
       setUserEmail(emailCurrent);
 
@@ -99,7 +99,6 @@ const LoginForm = () => {
               <form onSubmit={submitHandler}>
                 <div className="mb-6">
                   <span className="font-mono text-xl text-blue-500 ">Email</span>
-
                   <input
                     type="email"
                     id="email"
@@ -107,7 +106,7 @@ const LoginForm = () => {
                     ref={emailInputRef}
                     onChange={onChangeEmail}
                     value={userEmail}
-                    className="form-control block w-full px-4 py-2 text-l font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    className=" form-control block w-full px-4 py-2 text-l font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   />
                   {userEmail.length > 0 && (
                     <div className={"text-right"}>
@@ -143,7 +142,8 @@ const LoginForm = () => {
                     </button>
                   )}
                   {isLoading && (
-                    <button className="text-2xl font-mono px-5 py-2 bg-blue-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+                    <button
+                      className="text-2xl font-mono px-5 py-2 bg-blue-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
                       Sending Signup Requests
                     </button>
                   )}

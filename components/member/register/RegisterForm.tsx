@@ -18,8 +18,8 @@ const RegisterForm = () => {
     useState<string>("");
 
   const [isLoading, setIsLoading] = useState(false);
-  const emailInputRef = useRef<HTMLInputElement>(null) as any;
-  const passwordInputRef = useRef<HTMLInputElement>(null) as any;
+  const emailInputRef = useRef<HTMLInputElement>() as any;
+  const passwordInputRef = useRef<HTMLInputElement>() as any;
 
   const submitHandler = useCallback((event: any) => {
     event.preventDefault();
@@ -56,7 +56,7 @@ const RegisterForm = () => {
   const onChangeEmail = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const emailRegex =
-        /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+        /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(]?)$/;
       const emailCurrent = e.target.value;
       setUserEmail(emailCurrent);
 

@@ -190,7 +190,7 @@ const UploadZone = ({data, dispatch}: any) => {
           />
         </svg>
         <input
-          accept="image/gif, imgage/jpeg, image/png"
+          accept="image/*"
           id="fileSelect"
           type="file"
           multiple
