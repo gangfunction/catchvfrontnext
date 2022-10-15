@@ -1,4 +1,9 @@
-module.exports = {
+const path = require('path');
+const withImages = require('next-images');
+module.exports = withImages({
+    sassOptions: {
+        includePaths: [path.join(__dirname, 'styles')]
+    },
     compress: true,
     swcMinify: true,
     reactStrictMode: true,
@@ -11,6 +16,6 @@ module.exports = {
             devtool: prod ? "hidden-source-map" : "eval"
         }
     }
-}
+})
 
 

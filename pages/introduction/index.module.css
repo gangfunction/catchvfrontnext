@@ -1,0 +1,35 @@
+.one  {
+    width: 65.125rem;
+    height: 46.125rem;
+    margin: 2.75rem 4.813rem 14.563rem 12.5rem;
+    padding: 2.125rem 11.25rem 3.813rem 3.813rem;
+    border: 8px solid #b12828;
+}
+.one_content {
+    width: 49.875rem;
+    height: 27.5rem;
+    margin: 0 0 2.188rem 0.188rem;
+    font-family: KOHIBaeum, system-ui;
+    font-size: 8vh;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 7px;
+    text-align: left;
+    color: #b12828;
+}
+.two {
+    width: 41.688rem;
+    height: 10.5rem;
+    margin: 2.188rem 8.375rem 0 0;
+    font-family: KOHIBaeum;
+    font-size: 1.5rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 1.8px;
+    text-align: left;
+    color: #b12828;
+}

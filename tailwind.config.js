@@ -5,6 +5,7 @@ module.exports = {
       fontFamily: {
         mono: ['DungGeunMo'],
         duo:['CollegiateBlackFLF'],
+        trio:['Gilroy ExtraBold'],
       }
     },
   },
