@@ -1,42 +1,32 @@
-import React, { useContext, useState } from "react";
-import AuthContext from "../store/auth";
-import LoginForm from "../components/member/login/LoginForm";
-import RegisterForm from "../components/member/register/RegisterForm";
 
-const HomePage = () => {
-  const [isLogin, setIsLogin] = useState(false);
-  const authCtx = useContext(AuthContext);
-  const switchAuthModelHandler = () => {
-    setIsLogin((prevState) => !prevState);
-  };
+const Introduction = () => {
   return (
     <>
-      <section className="h-min">
-      {!isLogin ? (!authCtx.token && <LoginForm />) : (<RegisterForm />)}
-      <div className="text-right">
-        {!authCtx.token &&
-          (isLogin ? (
-            <button
-              type="button"
-              className="text-2xl font-mono mt-10 px-5 py-2 bg-blue-500 text-white  text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-              onClick={switchAuthModelHandler}
-            >
-              LOGIN
-            </button>
-          ) : (
-            <button
-              type="button"
-              className="text-2xl font-mono mt-10 px-5 py-2 bg-blue-500 text-white  text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-              onClick={switchAuthModelHandler}
-            >
-              REGISTER
-            </button>
-          ))}
-      </div>
-
-      </section>
+      <article  className=" snap-y snap-mandatory  h-screen w-screen  overflow-y md:overflow-scroll scrollbar-hide  ">
+        <section className="m-5 p-20 snap-start">
+          <img src='./images/index1.png' alt="index1"/>
+        </section>
+        <section className="m-5 p-20 snap-start ">
+          <img src='./images/index2.png' alt="index1"/>
+        </section>
+        <section className="m-5 p-20 snap-start ">
+          <img src='./images/index3.png' alt="index1"/>
+        </section>
+        <nav>
+          <ul>
+            <li>
+              <button></button>
+            </li>
+            <li>
+              <button></button>
+            </li>
+            <li>
+              <button></button>
+            </li>
+          </ul>
+        </nav>
+      </article>
     </>
-  );
-};
-
-export default HomePage;
+  )
+}
+export default Introduction;

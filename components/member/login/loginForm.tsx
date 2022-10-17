@@ -1,9 +1,8 @@
 import React, {useState, useRef, useContext, useCallback} from "react";
 import {useRouter} from "next/router";
 import AuthContext from "../../../store/auth";
-import useSWR from 'swr';
 
-const LoginForm = () => {
+const Login = () => {
   const authCtx = useContext(AuthContext);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +18,6 @@ const LoginForm = () => {
   const passwordInputRef = useRef<HTMLInputElement>() as any;
 
 
-  const {data, error} = useSWR('http://localhost:8080/user/api');
 
   /**
    * 이메일을 보낼때 사용하는 함수
@@ -47,6 +45,7 @@ const LoginForm = () => {
           setIsLoading(false);
           console.log(data);
           authCtx.login(enteredEmail);
+          router.push('/');
         })
         .catch(() => {
           alert("Wrong with your email or password");
@@ -88,6 +87,10 @@ const LoginForm = () => {
     },
     []
   );
+  const [isLogin, setIsLogin] = useState(false);
+  const switchAuthModelHandler = () => {
+    setIsLogin((prevState) => !prevState);
+  };
 
   return (
     <>
@@ -153,9 +156,10 @@ const LoginForm = () => {
           </div>
         </div>
       </section>
+
     </>
   );
 };
 
-export default LoginForm;
+export default Login;
 

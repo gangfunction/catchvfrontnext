@@ -4,6 +4,10 @@ module.exports = withImages({
     sassOptions: {
         includePaths: [path.join(__dirname, 'styles')]
     },
+    imqges: {
+        disableStaticImages: true
+    }
+    ,
     compress: true,
     swcMinify: true,
     reactStrictMode: true,

@@ -104,6 +104,20 @@ const MainNavigation = () => {
                   </li>
                 </button>
               )}
+              {!authCtx.token && (
+                <li>
+                  <Link href="/login">
+                    <a className="p-3
+                     font-extrabold
+                      tracking-tight
+                       antialiased
+                       hover:subpixel-antialiased"
+                    >
+                      Login
+                    </a>
+                  </Link>
+                </li>
+              )}
 
             </ul>
           </nav>
