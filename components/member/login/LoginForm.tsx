@@ -85,13 +85,7 @@ const Login = () => {
         setIsPassword(true);
       }
     },
-    []
-  );
-  const [isLogin, setIsLogin] = useState(false);
-  const switchAuthModelHandler = () => {
-    setIsLogin((prevState) => !prevState);
-  };
-
+    []);
   return (
     <>
       <section className="h-min">

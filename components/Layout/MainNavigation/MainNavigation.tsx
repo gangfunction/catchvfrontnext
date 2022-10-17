@@ -60,6 +60,19 @@ const MainNavigation = () => {
           </Link>
           <nav className="sm:text-4xl">
             <ul className="flex flex-wrap">
+
+              <li>
+                <Link href="/test">
+                  <a className="p-3
+                     font-extrabold
+                      tracking-tight
+                       antialiased
+                       hover:subpixel-antialiased"
+                  >
+                    Test
+                  </a>
+                </Link>
+              </li>
               {authCtx.token && (
                 <li>
                   <Link href="/service">
@@ -118,7 +131,6 @@ const MainNavigation = () => {
                   </Link>
                 </li>
               )}
-
             </ul>
           </nav>
         </header>

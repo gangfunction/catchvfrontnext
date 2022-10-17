@@ -4,12 +4,6 @@ const Footer = ()=>{
       <footer className="relative  translate-y-full  text-center bg-orange-50h-screen">
         <div className="px-4 py-12 mx-auto max-w-screen-xl sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto space-y-6">
-
-
-
-
-
-
             <nav className="p-6 border-4 border-gray-900 rounded-3xl">
               <ul className="flex flex-wrap justify-center text-sm font-bold gap-6">
                 <li>
@@ -46,7 +40,6 @@ const Footer = ()=>{
                     Uses
                   </a>
                 </li>
-
                 <li>
                   <a
                     className="text-gray-900 transition hover:text-gray-900/75"
@@ -71,7 +64,6 @@ const Footer = ()=>{
               </ul>
             </nav>
             <p className="max-w-lg mx-auto text-xs text-gray-500">
-
 
               <span className="block mt-4"> &copy; 2022 Catch V </span>
             </p>
