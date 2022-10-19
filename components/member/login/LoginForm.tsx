@@ -41,14 +41,19 @@ const Login = () => {
           "Content-Type": "application/json",
         },
       })
-        .then((data: any) => {
-          setIsLoading(false);
-          console.log(data);
-          authCtx.login(enteredEmail);
-          router.push('/');
+        .then(async(data: any) => {
+          const response = await data.json();
+          console.log(response);
+          if(response === "ACCEPTED"){
+            alert("로그인이 완료되었습니다.");
+            await router.push('/');
+            authCtx.login(enteredEmail);
+            setIsLoading(false);
+          }
         })
-        .catch(() => {
-          alert("Wrong with your email or password");
+        .catch(async(error: any) => {
+            alert("이메일 또는 비밀번호가 잘못되었습니다.");
+            await router.push('/login');
         });
     },
     [authCtx, router]

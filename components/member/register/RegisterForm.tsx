@@ -37,12 +37,17 @@ const RegisterForm = () => {
         "Content-Type": "application/json",
       },
     })
-      .then((res: any) => {
+      .then(async(res: any) => {
+        const response = await res.json();
+        console.log(response);
         setIsLoading(false);
-        if (res.ok) {
-          return res.json();
+        if(response === "ACCEPTED"){
+          alert("회원가입이 완료되었습니다.");
+          router.push('/login');
+        }else{
+          alert("이미 가입된 이메일입니다.");
+          router.push('/');
         }
-        return console.log(res);
       })
       .then(() => {
         console.log(enteredEmail, enteredPassword);
