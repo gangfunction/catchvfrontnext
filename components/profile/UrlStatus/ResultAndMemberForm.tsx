@@ -20,9 +20,10 @@ const ResultAndMemberForm = () => {
         return alert("Error: " + res);
       }
     }).then((json) => {
-      localStorage.setItem("urlTotalCount",json[0]["videoCount"]);
-      localStorage.setItem("urlsCount",json[0]["detectCount"]);
-      localStorage.setItem("urlList",json[0]["urlList"])
+      console.log(json)
+      localStorage.setItem("urlTotalCount",json["videoCount"]);
+      localStorage.setItem("urlsCount",json["detectCount"]);
+      localStorage.setItem("urlList",json["urlList"])
       // @ts-ignore
       const tmpArray= localStorage!.getItem("urlList").replace("[","")
       const tmp2Array = tmpArray.replace("]","");
@@ -70,7 +71,6 @@ const ResultAndMemberForm = () => {
           <div className="grid  grid-cols-2 h-auto text-2xl font-mono w-auto text-center">
               <span className="p-3">
                   Detected Count:{localStorage.getItem('urlsCount')}
-
               </span>
 
           </div>
