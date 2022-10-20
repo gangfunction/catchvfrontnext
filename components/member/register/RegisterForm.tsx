@@ -17,7 +17,6 @@ const RegisterForm = () => {
   const [passwordConfirmMessage, setPasswordConfirmMessage] =
     useState<string>("");
 
-  const [isLoading, setIsLoading] = useState(false);
   const emailInputRef = useRef<HTMLInputElement>() as any;
   const passwordInputRef = useRef<HTMLInputElement>() as any;
 
@@ -25,7 +24,11 @@ const RegisterForm = () => {
     event.preventDefault();
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
-    setIsLoading(true);
+    if(enteredEmail === "" || enteredPassword === ""){
+      alert("이메일 또는 비밀번호를 입력해주세요.");
+      router.push('/register');
+      return ;
+    }
     fetch('http://localhost:8080/user/api', {
       method: "PUT",
       body: JSON.stringify({
@@ -40,7 +43,6 @@ const RegisterForm = () => {
       .then(async(res: any) => {
         const response = await res.json();
         console.log(response);
-        setIsLoading(false);
         if(response === "ACCEPTED"){
           alert("회원가입이 완료되었습니다.");
           router.push('/login');
@@ -92,6 +94,9 @@ const RegisterForm = () => {
     },
     []
   );
+  const loginHandler = ()=>{
+    router.push('/login');
+  }
 
   // 비밀번호 확인
   const onChangePasswordConfirm = useCallback(
@@ -183,20 +188,21 @@ const RegisterForm = () => {
                   )}
                 </div>
 
-                <div className="text-center lg:text-right">
-                  {!isLoading && (
+                <div className="flex justify-between text-center lg:text-right">
                     <button
                       type="submit"
                       className="font-mono text-2xl px-6 py-2 bg-blue-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                     >
                       Submit
                     </button>
-                  )}
-                  {isLoading && (
-                    <button className="font-mono text-2xl  px-6 py-2 bg-blue-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
-                      Sending Signup Requests
-                    </button>
-                  )}
+
+                  <button
+                    type="button"
+                    onClick={loginHandler}
+                    className="font-mono text-2xl px-6 py-2 bg-blue-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                  >
+                    Login
+                  </button>
                 </div>
               </form>
             </div>

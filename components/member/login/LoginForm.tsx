@@ -5,7 +5,6 @@ import AuthContext from "../../../store/auth";
 const Login = () => {
   const authCtx = useContext(AuthContext);
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
 
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
@@ -47,7 +46,6 @@ const Login = () => {
             alert("로그인이 완료되었습니다.");
             await router.push('/');
             authCtx.login(enteredEmail);
-            setIsLoading(false);
           }
         })
         .catch(async (error: any) => {
@@ -90,6 +88,11 @@ const Login = () => {
       }
     },
     []);
+
+  function registerHandler() {
+    router.push('/register');
+  }
+
   return (
     <>
       <section className="h-min">
@@ -131,23 +134,24 @@ const Login = () => {
                     className="form-control block w-full px-4 py-2 text-l font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   />
                 </div>
-                <div className="text-center">
-                  {!isLoading && (
-                    <button
-                      type="submit"
-                      className="text-2xl font-mono px-5 py-2 bg-blue-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-                    >
-                      Submit
-                    </button>
-                  )}
-                  {isLoading && (
-                    <button
-                      className="text-2xl font-mono px-5 py-2 bg-blue-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
-                      Sending Signup Requests
-                    </button>
-                  )}
+                <div className="flex justify-between text-center">
+                  <button
+                    type="submit"
+                    className="text-2xl font-mono px-5 py-2 bg-blue-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                  >
+                    Submit
+                  </button>
+                  <button
+                    type="button"
+                    onClick={registerHandler}
+                    className="font-mono text-2xl px-6 py-2 bg-blue-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                  >
+                    REGISTER
+                  </button>
+
                 </div>
               </form>
+
             </div>
           </div>
         </div>
