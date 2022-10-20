@@ -1,5 +1,5 @@
-import MainNavigation from "../MainNavigation";
 import NextNProgress from "nextjs-progressbar";
+import MainNavigation from "../MainNavigation/MainNavigation";
 
 const Header = ()=>{
   return(

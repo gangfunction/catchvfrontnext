@@ -1,12 +1,10 @@
 import React, {useState, useRef, useContext, useCallback} from "react";
 import {useRouter} from "next/router";
 import AuthContext from "../../../store/auth";
-import useSWR from 'swr';
 
-const LoginForm = () => {
+const Login = () => {
   const authCtx = useContext(AuthContext);
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
 
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
@@ -18,8 +16,6 @@ const LoginForm = () => {
   const emailInputRef = useRef<HTMLInputElement>() as any;
   const passwordInputRef = useRef<HTMLInputElement>() as any;
 
-
-  const {data, error} = useSWR('http://localhost:8080/user/api');
 
   /**
    * 이메일을 보낼때 사용하는 함수
@@ -43,13 +39,18 @@ const LoginForm = () => {
           "Content-Type": "application/json",
         },
       })
-        .then((data: any) => {
-          setIsLoading(false);
-          console.log(data);
-          authCtx.login(enteredEmail);
+        .then(async (data: any) => {
+          const response = await data.json();
+          console.log(response);
+          if (response === "ACCEPTED") {
+            alert("로그인이 완료되었습니다.");
+            await router.push('/');
+            authCtx.login(enteredEmail);
+          }
         })
-        .catch(() => {
-          alert("Wrong with your email or password");
+        .catch((error: any) => {
+          alert("이메일 또는 비밀번호가 잘못되었습니다.");
+          router.push('/login');
         });
     },
     [authCtx, router]
@@ -86,15 +87,18 @@ const LoginForm = () => {
         setIsPassword(true);
       }
     },
-    []
-  );
+    []);
+
+  function registerHandler() {
+    router.push('/register');
+  }
 
   return (
     <>
       <section className="h-min">
-        <div className="px-4  text-gray-800">
-          <div className="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6">
-            <div className="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0 ">
+        <div className=" text-gray-800">
+          <div className="flex xl:justify-center lg:justify-center justify-center items-center flex-wrap h-full g-6">
+            <div className=" xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0 ">
               <div className="m-3 text-center font-duo text-5xl text-blue-500 ">LOGIN</div>
               <form onSubmit={submitHandler}>
                 <div className="mb-6">
@@ -129,33 +133,33 @@ const LoginForm = () => {
                     value={userPassword}
                     className="form-control block w-full px-4 py-2 text-l font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   />
-
                 </div>
+                <div className="flex justify-between text-center">
+                  <button
+                    type="submit"
+                    className="text-2xl font-mono px-5 py-2 bg-blue-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                  >
+                    Submit
+                  </button>
+                  <button
+                    type="button"
+                    onClick={registerHandler}
+                    className="font-mono text-2xl px-6 py-2 bg-blue-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                  >
+                    REGISTER
+                  </button>
 
-                <div className="text-center lg:text-left">
-                  {!isLoading && (
-                    <button
-                      type="submit"
-                      className="text-2xl font-mono px-5 py-2 bg-blue-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-                    >
-                      Submit
-                    </button>
-                  )}
-                  {isLoading && (
-                    <button
-                      className="text-2xl font-mono px-5 py-2 bg-blue-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
-                      Sending Signup Requests
-                    </button>
-                  )}
                 </div>
               </form>
+
             </div>
           </div>
         </div>
       </section>
+
     </>
   );
 };
 
-export default LoginForm;
+export default Login;
 

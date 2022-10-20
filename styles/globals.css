@@ -1,4 +1,5 @@
 @import url('http://fonts.cdnfonts.com/css/collegiateblackflf');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,4 +9,22 @@
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
     font-weight: normal;
     font-style: normal;
+}
+
+@layer utilities {
+    .snap {
+        scroll-snap-type: var(--scroll-snap-direction) var(--scroll-snap-constraint);
+    }
+
+    .snap-y {
+        --scroll-snap-direction: y;
+    }
+
+    .snap-mandatory {
+        --scroll-snap-constraint: mandatory;
+    }
+
+    .snap-start {
+        scroll-snap-align: start;
+    }
 }

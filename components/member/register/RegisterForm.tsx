@@ -17,7 +17,6 @@ const RegisterForm = () => {
   const [passwordConfirmMessage, setPasswordConfirmMessage] =
     useState<string>("");
 
-  const [isLoading, setIsLoading] = useState(false);
   const emailInputRef = useRef<HTMLInputElement>() as any;
   const passwordInputRef = useRef<HTMLInputElement>() as any;
 
@@ -25,7 +24,11 @@ const RegisterForm = () => {
     event.preventDefault();
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
-    setIsLoading(true);
+    if(enteredEmail === "" || enteredPassword === ""){
+      alert("이메일 또는 비밀번호를 입력해주세요.");
+      router.push('/register');
+      return ;
+    }
     fetch('http://localhost:8080/user/api', {
       method: "PUT",
       body: JSON.stringify({
@@ -37,12 +40,16 @@ const RegisterForm = () => {
         "Content-Type": "application/json",
       },
     })
-      .then((res: any) => {
-        setIsLoading(false);
-        if (res.ok) {
-          return res.json();
+      .then(async(res: any) => {
+        const response = await res.json();
+        console.log(response);
+        if(response === "ACCEPTED"){
+          alert("회원가입이 완료되었습니다.");
+          await router.push('/login');
+        }else{
+          alert("이미 가입된 이메일입니다.");
+          await router.push('/');
         }
-        return console.log(res);
       })
       .then(() => {
         console.log(enteredEmail, enteredPassword);
@@ -87,6 +94,9 @@ const RegisterForm = () => {
     },
     []
   );
+  const loginHandler = ()=>{
+    router.push('/login');
+  }
 
   // 비밀번호 확인
   const onChangePasswordConfirm = useCallback(
@@ -108,7 +118,7 @@ const RegisterForm = () => {
     <>
       <section className="h-min">
         <div className="px-6  text-gray-800">
-          <div className="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6">
+          <div className="flex xl:justify-center lg:justify-center justify-center items-center flex-wrap h-full g-6">
             <div className="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
               <div className="m-3 text-center font-duo text-4xl text-blue-500">REGISTER</div>
               <form onSubmit={submitHandler}>
@@ -178,20 +188,21 @@ const RegisterForm = () => {
                   )}
                 </div>
 
-                <div className="text-center lg:text-right">
-                  {!isLoading && (
+                <div className="flex justify-between text-center lg:text-right">
                     <button
                       type="submit"
                       className="font-mono text-2xl px-6 py-2 bg-blue-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                     >
                       Submit
                     </button>
-                  )}
-                  {isLoading && (
-                    <button className="font-mono text-2xl  px-6 py-2 bg-blue-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
-                      Sending Signup Requests
-                    </button>
-                  )}
+
+                  <button
+                    type="button"
+                    onClick={loginHandler}
+                    className="font-mono text-2xl px-6 py-2 bg-blue-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                  >
+                    Login
+                  </button>
                 </div>
               </form>
             </div>

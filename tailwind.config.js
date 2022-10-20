@@ -5,10 +5,12 @@ module.exports = {
       fontFamily: {
         mono: ['DungGeunMo'],
         duo:['CollegiateBlackFLF'],
+        trio:['Gilroy ExtraBold'],
       }
     },
   },
   plugins: [
+      require('tailwind-scrollbar-hide'),
       require('flowbite/plugin')
   ],
 };

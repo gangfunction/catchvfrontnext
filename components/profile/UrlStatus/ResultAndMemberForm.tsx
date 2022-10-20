@@ -70,9 +70,6 @@ const ResultAndMemberForm = () => {
       {show &&
           <div className="grid  grid-cols-2 h-auto text-2xl font-mono w-auto text-center">
               <span className="p-3">
-                  {/*Total Count:{localStorage.getItem('urlTotalCount')}*/}
-              </span>
-              <span className="p-3">
                   Detected Count:{localStorage.getItem('urlsCount')}
               </span>
 

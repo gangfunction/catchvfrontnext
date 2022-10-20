@@ -129,28 +129,27 @@ const UploadZone = ({data, dispatch}: any) => {
   /**
    * 이미지를 압축할때 쓰는 함수이다.
    */
-  const compressHandler = async () => {
-    if (data.fileList.length > 0) {
-      const options = {
-        maxSizeMB: 0.6,
-        maxWidthOrHeight: 1920
-      }
-      for (let i = 0; i < data.fileList.length; i++) {
-        try {
-          data.fileList[i] = await imageCompression(data.fileList[i], options);
-        } catch (e) {
-          console.log(e);
-        }
-      }
-
-    }
+  // const compressHandler = async () => {
+  //   if (data.fileList.length > 0) {
+  //     const options = {
+  //       maxSizeMB: 0.6,
+  //       maxWidthOrHeight: 1920
+  //     }
+  //     for (let i = 0; i < data.fileList.length; i++) {
+  //       try {
+  //         data.fileList[i] = await imageCompression(data.fileList[i], options);
+  //       } catch (e) {
+  //         console.log(e);
+  //       }
+  //     }
+  //   }
     /**
      * 파일압축이 성공했을때 나타내는 메시지,
      * 후에 서비스 페이지로 리다이렉션 해준다.
      */
-    alert("File Compression Completed!")
-    await router.push('/service')
-  }
+  //   alert("File Compression Completed!")
+  //   await router.push('/service')
+  // }
   /**
    * 날짜선택이 이루어진 경우 하위컴포넌트에서 호출되어
    * setDatePick을 true로 변환해준다.
@@ -212,18 +211,18 @@ const UploadZone = ({data, dispatch}: any) => {
           {fileSizeCalculator()} MB
         </p>
       </button>
-      <button
-        onClick={compressHandler}
-        onChange={fileSizeCalculator}
-        className="relative inline-block group focus:outline-none focus:ring"
-      >
-        <span
-          className="absolute inset-0 transition-transform translate-x-1.5 translate-y-1.5 bg-yellow-300 group-hover:translate-y-0 group-hover:translate-x-0"></span>
-        <span
-          className="relative inline-block px-6 py-2 text-sm font-bold tracking-widest text-black uppercase border-2 border-current group-active:text-opacity-0">
-            Compress File
-          </span>
-      </button>
+      {/*<button*/}
+      {/*  onClick={compressHandler}*/}
+      {/*  onChange={fileSizeCalculator}*/}
+      {/*  className="relative inline-block group focus:outline-none focus:ring"*/}
+      {/*>*/}
+      {/*  <span*/}
+      {/*    className="absolute inset-0 transition-transform translate-x-1.5 translate-y-1.5 bg-yellow-300 group-hover:translate-y-0 group-hover:translate-x-0"></span>*/}
+      {/*  <span*/}
+      {/*    className="relative inline-block px-6 py-2 text-sm font-bold tracking-widest text-black uppercase border-2 border-current group-active:text-opacity-0">*/}
+      {/*      Compress File*/}
+      {/*    </span>*/}
+      {/*</button>*/}
 
 
       {data.fileList.length > 0 && (
