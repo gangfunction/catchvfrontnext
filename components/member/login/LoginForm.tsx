@@ -18,7 +18,6 @@ const Login = () => {
   const passwordInputRef = useRef<HTMLInputElement>() as any;
 
 
-
   /**
    * 이메일을 보낼때 사용하는 함수
    */
@@ -41,19 +40,19 @@ const Login = () => {
           "Content-Type": "application/json",
         },
       })
-        .then(async(data: any) => {
+        .then(async (data: any) => {
           const response = await data.json();
           console.log(response);
-          if(response === "ACCEPTED"){
+          if (response === "ACCEPTED") {
             alert("로그인이 완료되었습니다.");
             await router.push('/');
             authCtx.login(enteredEmail);
             setIsLoading(false);
           }
         })
-        .catch(async(error: any) => {
-            alert("이메일 또는 비밀번호가 잘못되었습니다.");
-            await router.push('/login');
+        .catch(async (error: any) => {
+          alert("이메일 또는 비밀번호가 잘못되었습니다.");
+          await router.push('/login');
         });
     },
     [authCtx, router]
@@ -94,9 +93,9 @@ const Login = () => {
   return (
     <>
       <section className="h-min">
-        <div className="px-4  text-gray-800">
+        <div className=" text-gray-800">
           <div className="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6">
-            <div className="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0 ">
+            <div className=" xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0 ">
               <div className="m-3 text-center font-duo text-5xl text-blue-500 ">LOGIN</div>
               <form onSubmit={submitHandler}>
                 <div className="mb-6">
@@ -131,10 +130,8 @@ const Login = () => {
                     value={userPassword}
                     className="form-control block w-full px-4 py-2 text-l font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   />
-
                 </div>
-
-                <div className="text-center lg:text-left">
+                <div className="text-center">
                   {!isLoading && (
                     <button
                       type="submit"

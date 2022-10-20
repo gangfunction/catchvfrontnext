@@ -13,7 +13,7 @@ const HomePage = () => {
     <>
       <section className="h-min">
       {!isLogin ? (!authCtx.token && <LoginForm />) : (<RegisterForm />)}
-      <div className="text-right">
+      <div className="text-center">
         {!authCtx.token &&
           (isLogin ? (
             <button
@@ -33,7 +33,6 @@ const HomePage = () => {
             </button>
           ))}
       </div>
-
       </section>
     </>
   );
