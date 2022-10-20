@@ -45,10 +45,10 @@ const RegisterForm = () => {
         console.log(response);
         if(response === "ACCEPTED"){
           alert("회원가입이 완료되었습니다.");
-          router.push('/login');
+          await router.push('/login');
         }else{
           alert("이미 가입된 이메일입니다.");
-          router.push('/');
+          await router.push('/');
         }
       })
       .then(() => {
@@ -118,7 +118,7 @@ const RegisterForm = () => {
     <>
       <section className="h-min">
         <div className="px-6  text-gray-800">
-          <div className="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6">
+          <div className="flex xl:justify-center lg:justify-center justify-center items-center flex-wrap h-full g-6">
             <div className="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
               <div className="m-3 text-center font-duo text-4xl text-blue-500">REGISTER</div>
               <form onSubmit={submitHandler}>

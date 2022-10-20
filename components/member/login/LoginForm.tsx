@@ -48,9 +48,9 @@ const Login = () => {
             authCtx.login(enteredEmail);
           }
         })
-        .catch(async (error: any) => {
+        .catch((error: any) => {
           alert("이메일 또는 비밀번호가 잘못되었습니다.");
-          await router.push('/login');
+          router.push('/login');
         });
     },
     [authCtx, router]
@@ -97,7 +97,7 @@ const Login = () => {
     <>
       <section className="h-min">
         <div className=" text-gray-800">
-          <div className="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6">
+          <div className="flex xl:justify-center lg:justify-center justify-center items-center flex-wrap h-full g-6">
             <div className=" xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0 ">
               <div className="m-3 text-center font-duo text-5xl text-blue-500 ">LOGIN</div>
               <form onSubmit={submitHandler}>
