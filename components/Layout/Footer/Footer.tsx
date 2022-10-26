@@ -43,11 +43,11 @@ const Footer = ()=>{
                 <li>
                   <a
                     className="text-gray-900 transition hover:text-gray-900/75"
-                    href="/"
+                    href="https://adaptable-newsboy-3bc.notion.site/Oss-Notice-b2123e2ab84643889436d069f4af4072"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Blog
+                    Oss Notice
                   </a>
                 </li>
 

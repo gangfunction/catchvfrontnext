@@ -63,48 +63,48 @@ const MainNavigation = () => {
 
               <li>
                 <Link href="/test">
-                  <a className="p-3
+                  <button className="p-3
                      font-extrabold
                       tracking-tight
                        antialiased
                        hover:subpixel-antialiased"
                   >
                     Test
-                  </a>
+                  </button>
                 </Link>
               </li>
               {authCtx.token && (
                 <li>
                   <Link href="/service">
-                    <a className="p-3
+                    <button className="p-3
                     font-extrabold
                     tracking-tight
                     antialiased
                     hover:subpixel-antialiased
                       ">
                       Service
-                    </a>
+                    </button>
                   </Link>
                 </li>
               )}
               {authCtx.token && (
                 <li>
                   <Link href="/profile">
-                    <a className="p-3
+                    <button className="p-3
                      font-extrabold
                       tracking-tight
                        antialiased
                        hover:subpixel-antialiased"
                     >
                       Profile
-                    </a>
+                    </button>
                   </Link>
                 </li>
               )}
               {authCtx.token && (
                 <button>
                   <li>
-                    <a
+                    <button
                       className="p-3
                         font-extrabold
                          tracking-tight
@@ -113,21 +113,21 @@ const MainNavigation = () => {
                       onClick={logoutHandler}
                     >
                       Logout
-                    </a>
+                    </button>
                   </li>
                 </button>
               )}
               {!authCtx.token && (
                 <li>
                   <Link href="/login">
-                    <a className="p-3
+                    <button className="p-3
                      font-extrabold
                       tracking-tight
                        antialiased
                        hover:subpixel-antialiased"
                     >
                       Login
-                    </a>
+                    </button>
                   </Link>
                 </li>
               )}
