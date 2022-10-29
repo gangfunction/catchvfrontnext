@@ -19,6 +19,9 @@ function noMoving(e: Event) {
 const UploadZone = ({data, dispatch}: any) => {
   const [upload, setUploaded] = useState(false);
   const [datepick, setDatePick] = useState(false);
+  const [timepick, setTimePick] = useState(false);
+  const [total_len,setTotal_len] = useState('');
+
   const router = useRouter();
   /**
    * 업로드 존에 들어왔을때 나타나는 상태전환을 해주는 함수이다.
@@ -93,12 +96,14 @@ const UploadZone = ({data, dispatch}: any) => {
     files.forEach((file: any) => formData.append("files", file));
     const userEmail = localStorage.getItem("userEmail") as any;
     const startDate = localStorage.getItem("startDate") as any;
+    const raw_len = localStorage.getItem("raw_len") as any;
     formData.append("email", userEmail);
     formData.append("startDate", startDate);
+    formData.append("raw_len", raw_len);
     console.log(formData.get("email"));
 
 
-    const response = ( fetch("http://localhost:8080/image/api", {
+    const response = fetch("http://localhost:8080/image/api", {
       method: "POST",
       headers: {},
       body: formData,
@@ -107,11 +112,11 @@ const UploadZone = ({data, dispatch}: any) => {
         if (response.status === 200) {
           alert("Files uploaded successfully");
         } else {
-          alert(response.status);
+          alert("파일 전송에 실패했습니다.");
         }
       }
       router.push('/');
-    })) as any;
+    }) as any;
 
   };
   /**
@@ -144,23 +149,20 @@ const UploadZone = ({data, dispatch}: any) => {
    *     }
    */
 
-    /**
-     * 파일압축이 성공했을때 나타내는 메시지,
-     * 후에 서비스 페이지로 리다이렉션 해준다.
-     */
-
 
   /**
    * 날짜선택이 이루어진 경우 하위컴포넌트에서 호출되어
    * setDatePick을 true로 변환해준다.
-   *   //   alert("File Compression Completed!")
-   *   //   await router.push('/service')
-   *   // }
    */
   const dateFunction = ()=>{
     setDatePick(true);
+    alert('Date Pick Finished!');
   }
-
+  const onChangeTime= (e: any)=>{
+    setTotal_len(e.target.value);
+    localStorage.setItem('raw_len',e.target.value);
+    setTimePick(true);
+  }
 
   return (
     <>
@@ -169,6 +171,24 @@ const UploadZone = ({data, dispatch}: any) => {
           Please Select Start Date
         </span>
         <DateSelect propFunction={dateFunction}/>
+      </div>}
+      {upload && datepick &&<div className="flex flex-col  content-center ">
+        <span className="font-mono text-2xl ">
+          Please Select Video Length
+        </span>
+        <form>
+          <input
+              placeholder="EX) 2 hour = 120 "
+              type="text"
+              onChange={onChangeTime}
+              className="form-control block w-full px-4 py-2 text-l font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+          />
+          <button>
+            Submit
+          </button>
+        </form>
+
+
       </div>}
       {!upload &&<div
         className={styles.dropzone}
@@ -256,9 +276,6 @@ const UploadZone = ({data, dispatch}: any) => {
           </span>
         </button>
       )}
-
-
-
     </>
   );
 };
