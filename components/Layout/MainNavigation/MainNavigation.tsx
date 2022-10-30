@@ -27,6 +27,7 @@ const MainNavigation = () => {
         .then((res: any) => {
           if (res.ok) {
             router.push('/');
+            localStorage.clear();
           }
           return (
             console.log(res)
@@ -34,7 +35,6 @@ const MainNavigation = () => {
         })
         .catch((err: any) => {
           console.log(err);
-          localStorage.clear();
         });
     }
 

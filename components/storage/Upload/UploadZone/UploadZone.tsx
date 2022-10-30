@@ -108,14 +108,12 @@ const UploadZone = ({data, dispatch}: any) => {
       headers: {},
       body: formData,
     }).then(() => {
-      if (response) {
-        if (response.status === 200) {
+      if (response && response.status==200) {
           alert("Files uploaded successfully");
-        } else {
-          alert("파일 전송에 실패했습니다.");
-        }
       }
       router.push('/');
+    }).catch((err:any)=>{
+      alert(err);
     }) as any;
 
   };
